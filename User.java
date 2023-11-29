@@ -75,8 +75,15 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
     }
+
+    public boolean verifyPassword(String rawPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.matches(rawPassword, this.password);
+    }
+
 
     public void setBirthDate(Date birthDate) { //πρεπει να βαλω και getBirthDate?
         this.birthDate = birthDate;
