@@ -13,7 +13,7 @@ public class Preferences {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long preferenceId;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String allergy;
 
     // Constructors
