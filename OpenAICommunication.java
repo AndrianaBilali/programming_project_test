@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import org.json.JSONObject; //add dependency on maven
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 
 public class OpenAICommunication {
     // setting the API endpoint
@@ -36,18 +37,30 @@ public class OpenAICommunication {
     }
 
     public void sendRequest(String userQuestion) {
-        connection.setRequestMethod("POST"); // indicating that i will be sending data to the model
+        try {
+            connection.setRequestMethod("POST"); // indicating that i will be sending data to the model
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        }
+
         connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("Authorization", "Bearer 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"); // openai
-                                                                                                                      // key
-        JSONObject jo = new JSONObject(); // creating json object
-        jo.put("q: ", userQuestion); // passing the user's question into the json object
-        String inputJSON = jo.toString(); // finally converting the json object to a string
+        connection.setRequestProperty("Authorization", "Bearer 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"); // key
+        try {
+            JSONObject jo = new JSONObject(); // creating json object
+            jo.put("q: ", userQuestion); // passing the user's question into the json object
+            String inputJSON = jo.toString(); // finally converting the json object to a string
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         connection.setDoInput(true); // to indicate that i am going to give data
         connection.setDoOutput(true); // to indicate that i am expecting the model's response
 
-        OutputStream obj = connection.getOutputStream(); // creating an object
+        try {
+            OutputStream obj = connection.getOutputStream(); // creating an object
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         byte[] array = inputJSON.getBytes("utf-8"); // interpreting the text to bytes
         try {
             obj.write(array, 0, array.length); // writing all the bytes to the stream
