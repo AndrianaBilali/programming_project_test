@@ -48,7 +48,7 @@ public class UserQuery {
     }
     //checks if the query is written in the English language
     public String checkLanguage() {
-        while (not (query.matches("[a-zA-Z]+"))) {
+        while (!query.matches("[a-zA-Z]+")) {
                 System.out.println("The query doesn't contain latin characters. Please reenter your query in the English language");
                 String newQuery = input.nextLine(); //the user enters the query again
                 query = newQuery;// place the new query in the query variable
@@ -65,11 +65,12 @@ public class UserQuery {
         System.out.println(response.getBody().toPrettyString());
         double toxicity = response.getBody().getObject().getJSNObject("attributeScores").getJSNObject("TOXICITY").getJSNObject("summaryScore").getDouble("value");
         System.out.println("Inappropriate content" + toxicity);
-        if (toxicity >= 0.0) {
+        if (toxicity >= 0.1) {
         System.out.println("The query that you have entered contains inappropriate content. Please reenter your query");
         String newQuery = input.nextLine(); //the user enters the query again
         query = newQuery;// place the new query in the query variable
         }
+        return query;
     }
 }
 
