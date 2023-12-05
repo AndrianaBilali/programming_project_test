@@ -1,14 +1,18 @@
 package PEINAI.peinai.src.main.java.gr.aueb.dmst;
 
-// used to define the mapping between Java objects and database tables
+// Java Persistence API annotations for defining the mapping between objects and database tables
 import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
+// Apache Commons Codec for password hashing
+import org.apache.commons.codec.digest.DigestUtils;
+
+// Jakarta Persistence API annotations for cascading and joining
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -18,8 +22,9 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Date;
 
-@Entity // instances of the class should be treated as JPA entities, and their state
-        // will be persisted to the database.
+/*instances of the class should be treated as JPA entities, and their state
+will be persisted to the database.*/
+@Entity
 public class User {
 
     @Id // specifies that the userId field is the primary key for the entity
@@ -27,8 +32,10 @@ public class User {
                                                         // keys
     private Long userId;
 
-    // These annotations define the mapping of the fields username, password, gender and
-    // email to database columns
+    /*
+     * These annotations define the mapping of the fields username,
+     * password,gender and email to database columns
+     */
     @Column(nullable = false, unique = true)
     private String username;
 
@@ -41,7 +48,8 @@ public class User {
     @Column(nullable = true)
     private String gender;
 
-    @Temporal(TemporalType.DATE) // specifies that the birthDate field should be mapped to a SQL DATE column
+    // specifies that the birthDate field should be mapped to a SQL DATE column
+    @Temporal(TemporalType.DATE)
     @Column(nullable = true)
     private Date birthDate;
 
@@ -75,17 +83,21 @@ public class User {
     }
 
     public void setPassword(String password) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        this.password = passwordEncoder.encode(password);
+        // Hash the password using
+        this.password = hashPassword(password);
     }
 
     public boolean verifyPassword(String rawPassword) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.matches(rawPassword, this.password);
+        // Verify the password by comparing the hashed version
+        return hashPassword(rawPassword).equals(this.password);
     }
 
+    private String hashPassword(String password) {
+        // using Apache Commons Codec DigestUtils
+        return DigestUtils.sha256Hex(password);
+    }
 
-    public void setBirthDate(Date birthDate) { //πρεπει να βαλω και getBirthDate?
+    public void setBirthDate(Date birthDate) { // πρεπει να βαλω και getBirthDate?
         this.birthDate = birthDate;
     }
 
