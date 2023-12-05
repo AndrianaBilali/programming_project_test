@@ -34,11 +34,12 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+            <version>2.2.224</version>
             <scope>runtime</scope>
         </dependency>
         
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>6.4.0.Final</version>
         </dependency>
@@ -50,38 +51,6 @@
 
         
     </dependencies>
-
-<!--
-    ~NOT USEFUL NOW, MAYBE LATERS~
-    If you don't include the <build> section in your Maven POM file,
-    the default build configuration will be used.
-    The <build> section in Maven allows you to customize the build process by 
-    configuring plugins, setting source and target Java versions,
-    and specifying various other build-related settings.
-    <build>
-    <plugins>
-    
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-checkstyle-plugin</artifactId>
-            <version>2.13</version>
-            <configuration>
-                ~Checkstyle configuration can be added here if needed~
-            </configuration>
-        </plugin>
-
-        SpotBugs Maven Plugin
-        <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>spotbugs-maven-plugin</artifactId>
-            <version>3.0.1-SNAPSHOT</version>
-            <configuration>
-                 ~SpotBugs configuration can be added here if needed~
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
--->
 
     <build>
     <plugins>
@@ -96,20 +65,21 @@
             <configuration>
                 <configLocation>checkstyle.xml</configLocation>
             </configuration>
-            <!--<reportSets>
-                <reportSet>
-                    <reports>
-                        <report>checkstyle</report>
-                    </reports>
-                </reportSet>
-            </reportSets> -->
         </plugin>
 
         <!-- SpotBugs Maven Plugin Configuration -->
         <plugin>
-            <groupId>org.codehaus.mojo</groupId>
+            <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs-maven-plugin</artifactId>
-            <version>3.0.1-SNAPSHOT</version>
+            <version>4.8.2.0</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>check</goal>
+                    </goals>
+                    <phase>verify</phase>
+                </execution>
+            </executions>
         </plugin>
     </plugins>
 </build>
