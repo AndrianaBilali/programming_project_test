@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
-
+//test for Preferences class
 class PreferencesTest {
 
     @Test
@@ -34,10 +34,7 @@ class PreferencesTest {
         preferences.setFavIngredients(favIngredients);
 
         assertEquals(favIngredients, preferences.getFavIngredients());
-        //
-
-        // Add more tests, e.g., modifying the original set and checking if it's
-        // reflected in preferences.getFavIngredients()
+       
     }
 
     @Test
