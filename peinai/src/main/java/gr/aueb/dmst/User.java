@@ -51,7 +51,7 @@ public class User {
     // specifies that the birthDate field should be mapped to a SQL DATE column
     @Temporal(TemporalType.DATE)
     @Column(nullable = true)
-    private Date birthDate;
+    private LocalDate birthDate; // Changed to LocalDate
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "preference_id", referencedColumnName = "preferenceId")
@@ -97,10 +97,6 @@ public class User {
         return DigestUtils.sha256Hex(password);
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
-    }
-
     public String getGender() {
         return gender;
     }
@@ -109,15 +105,26 @@ public class User {
         this.gender = gender;
     }
 
-    // Calculate age based on birth date using java.time
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
     public int calculateAge() {
         if (birthDate == null) {
-            return 0; // Return 0 if birth date is not set
+            return 0;
         }
 
-        LocalDate birthLocalDate = birthDate.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
         LocalDate currentDate = LocalDate.now();
-        Period period = Period.between(birthLocalDate, currentDate);
+
+        if (birthDate.isAfter(currentDate)) {
+            return 0;
+        }
+
+        Period period = Period.between(birthDate, currentDate);
 
         return period.getYears();
     }

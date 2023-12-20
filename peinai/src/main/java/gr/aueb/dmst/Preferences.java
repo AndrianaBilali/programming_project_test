@@ -29,6 +29,7 @@ public class Preferences {
 
     // Default constructor
     public Preferences() {
+        this.preferenceId = 0L;
     }
 
     // Parameterized constructor
