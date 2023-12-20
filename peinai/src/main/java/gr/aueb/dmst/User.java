@@ -20,7 +20,6 @@ import jakarta.persistence.OneToOne;
 //used for the calculation of the user's age
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Date;
 
 /*instances of the class should be treated as JPA entities, and their state
 will be persisted to the database.*/
