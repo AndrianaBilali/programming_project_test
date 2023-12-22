@@ -1,8 +1,6 @@
-package com.example.myproject ;
+package main.java.gr.aueb.dmst ;
 import java.io.IOException;
 import java.util.Scanner;
-
-import main.java.com.example.my.project.InappropriateContent;
 
 public class UserQuery {
     private String query ;
@@ -18,62 +16,78 @@ public class UserQuery {
      public String getQuery(){
         return query;
     }
+    //total pre-processing of the query
+    //returns the modified query
+    public String modify() throws IOException {
+        this.EmptyQuery();
+        this.checkLanguage();
+        this.TrimQuery();
+        this.LowerCaseQuery();
+        this.CapitalFirstLetter();
+        this.remove_Newlines_Tabs();
+        this.foodContent();
+        
+        InappropriateContent inobj = new InappropriateContent(query);
+        double inappropriateContent = inobj.checkContent();
+        String mquery = getQuery();
+        return mquery;
+    }
     //removes the blank spaces from the query and returns it
-    public String TrimQuery () {
-        query = query.trim();
-        return query; 
+    public void TrimQuery () {
+        query = query.trim(); 
+        
     }// converts the query in lower letters and returns it
-    public String LowerCaseQuery() {
+    public void LowerCaseQuery() {
         query = query.toLowerCase();
-        return query;
+        
     }// first letter capital
-    public String CapitalFirstLetter() {
-            query = query.substring(0,1).toUpperCase() +query.substring(1);
-            return query;}
+    public void CapitalFirstLetter() {
+            query = query.substring(0,1).toUpperCase() +query.substring(1);}
+    
     // checks if the user has not entered a query 
-    public String EmptyQuery() {
+    public void EmptyQuery() {
         while (query.isEmpty() == true) {
             System.out.println("You have not entered a query. Please try again");
             String newQuery = input.nextLine(); //the user enters the query again
             query = newQuery;// place the new query in the query variable
             }
-            return query;
         }
     // removes the newline characters and tabs from the query    
-    public String remove_Newlines_Tabs() {
+    public void remove_Newlines_Tabs() {
         query = query.replaceAll("[\n\t]", "");
-        return query;
     }
     //checks if the query is written in the English language
-    public String checkLanguage() {
+    public void checkLanguage() {
         while (query.matches("[a-zA-Z ?]+") != true){
                 System.out.println("The query doesn't contain latin characters. Please reenter your query in the English language");
                 String newQuery = input.nextLine(); //the user enters the query again
                 query = newQuery;// place the new query in the query variable
         }
-        return query;
+        
     }
+    //checks if the query is relatable with food
     public void foodContent() {
         boolean containsFood = query.contains("recipy");
-        if (!containsFood) {
-            System.out.println("The query doesn't relate with food. Please try again.");
-            String s = input.nextLine();
-            this.setQuery(s);
+        while (true) {
+            if (containsFood == false){
+                System.out.println("The query doesn't relate with food. Please try again.");
+                String s = input.nextLine();
+                this.setQuery(s);}
+            else{
+                break;
+            }
+              containsFood = query.contains("recipy");
         }
     }
     
     
     
 
-        public static void main(String[] args)  throws IOException {
-        UserQuery u = new UserQuery("hi");
-        u.setQuery("heyy  ?  ");
-       // System.out.println(u.checkLanguage());
-                   InappropriateContent inobj = new InappropriateContent("nefelh");
-        double v = inobj.checkContent();
-        System.out.println(v);
-         //u.foodContent();
-         //System.out.println(u.getQuery());
-}}
+      /*  public static void main(String[] args)  throws IOException {
+        UserQuery n = new UserQuery("tell me a recipy that ");
+        String mofified_query = n.modify();
+        System.out.println(mofified_query);
+    }*/
+}
 
 
