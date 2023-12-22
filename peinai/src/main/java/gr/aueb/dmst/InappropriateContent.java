@@ -1,4 +1,4 @@
-package main.java.com.example.my.project;
+package main.java.gr.aueb.dmst;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
