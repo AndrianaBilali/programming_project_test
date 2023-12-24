@@ -67,16 +67,23 @@ public class UserQuery {
     }
     //checks if the query is relatable with food
     public void foodContent() {
-        boolean containsFood = query.contains("recipy");
+        boolean containsFood = (query.contains("recipy") || (query.contains("Recipy"))) ;
         while (true) {
             if (containsFood == false){
                 System.out.println("The query doesn't relate with food. Please try again.");
                 String s = input.nextLine();
-                this.setQuery(s);}
+                this.setQuery(s);
+                 this.setQuery(s);
+                this.EmptyQuery();
+                this.checkLanguage();
+                this.TrimQuery();
+                this.LowerCaseQuery();
+                this.CapitalFirstLetter();
+                this.remove_Newlines_Tabs(); }
             else{
                 break;
             }
-              containsFood = query.contains("recipy");
+              containsFood = (query.contains("recipy") || (query.contains("Recipy")));
         }
     }
     
