@@ -38,4 +38,20 @@ class UserTest {
         String hashedPassword = user.hashPassword("password123");
         assertNotNull(hashedPassword);
     }
+
+    @Test
+    void testPreferencesAssociation() {
+        // Create a new User instance
+        User user = new User();
+
+        // Create a new Preferences instance
+        Preferences preferences = new Preferences();
+
+        // Set the Preferences for the User
+        user.setPreferences(preferences);
+
+        // Verify that the Preferences set for the User is the same as the one retrieved
+        assertEquals(preferences, user.getPreferences());
+    }
+
 }
