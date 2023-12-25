@@ -91,8 +91,8 @@ public class User {
         return hashPassword(rawPassword).equals(this.password);
     }
 
-    // Private method to hash the password using Apache Commons Codec DigestUtils
-    private String hashPassword(String password) {
+    // Protected method to hash the password using Apache Commons Codec DigestUtils
+    protected String hashPassword(String password) {
         try {
             // using Apache Commons Codec DigestUtils
             return DigestUtils.sha256Hex(password);
