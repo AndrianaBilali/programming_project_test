@@ -20,8 +20,7 @@ import jakarta.persistence.OneToOne;
 //used for the calculation of the user's age
 import java.time.LocalDate;
 import java.time.Period;
-// Import for handling date parsing exceptions
-import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeParseException; // Import for handling date parsing exceptions
 
 /*instances of the class should be treated as JPA entities, and their state
 will be persisted to the database.*/
@@ -92,6 +91,7 @@ public class User {
         return hashPassword(rawPassword).equals(this.password);
     }
 
+    // Private method to hash the password using Apache Commons Codec DigestUtils
     private String hashPassword(String password) {
         try {
             // using Apache Commons Codec DigestUtils
@@ -118,6 +118,7 @@ public class User {
         return birthDate;
     }
 
+    // method for calculating user's age
     public int calculateAge() {
         try {
             if (birthDate == null) {
