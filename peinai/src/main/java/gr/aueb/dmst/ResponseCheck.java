@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.ArrayList;
-
+import java.util.List;
 public class ResponseCheck {
     public String SpellingAndGrammarCheck(String aiAnswer) {
         try{
@@ -39,82 +39,48 @@ public class ResponseCheck {
     private Map<String, String> termReplacements = new HashMap<>();
     // Create a map of complex cooking terms and their simpler explanations
     public void createCookingDictionary() {
-        termReplacements.put("Julienne","To cut meat, vegetables or fruit into long, very thin strips");
-        termReplacements.put("Marinate", "To let food stand in seasonings that include at least one wet ingredient to tenderize and increase the flavor.");
-        termReplacements.put("Mince", "To cut or chop food into very small pieces.");
-        termReplacements.put("Parboil", "To cook food in a boiling liquid just until partially done. Cooking may be completed using another method or at another time");
-        termReplacements.put("Pare", "To remove the outer peel or skin of a fruit or vegetable with a knife.");
-        termReplacements.put("Poach", "To cook slowly in a liquid such as water, seasoned water, broth or milk, at a temperature just below the boiling point.");
-        termReplacements.put("Prove", "To let dough or yeast mixture rise before baking.");
-        termReplacements.put("Purée", "To put food through a sieve, blender or food processor in order to produce a thick pulp.");
-        termReplacements.put("Render","To meld solid fat (eg from beef or pork) slowly in the oven.");
-        termReplacements.put("Roast","To cook meat or vegetables in an uncovered pan in an oven using dry heat.");
-        termReplacements.put("Sauté","To brown or cook meat, fish, vegetables or fruit in a small amount of fat ");
-        termReplacements.put("Scald", "To heat milk until just below the boiling point, when you will see tiny bubbles appearing around the edges of the pan.");
-        termReplacements.put("Score", "To make shallow slits into the food, usually in a rectangular or diamond pattern.");
-        termReplacements.put("Sear","To cook meat quickly at high heat to seal the surface of the meat and produce a brown color.");
-        termReplacements.put("Shred","To cut into long thin strips with a knife or shredder.");
-        termReplacements.put("Simmer","To cook in liquid that is just below the boiling point. Bubbles will form slowly and burst before reaching the surface.");
-        termReplacements.put("Sliver", "To cut into long thin pieces with a knife");
-        termReplacements.put("Steam", "To cook in a covered container over boiling water. The container should have small holes in it to allow the steam from the water to rise.");
-        termReplacements.put("Steep", "To let a food stand for a few minutes in just boiled water to increase flavor and color.");
-        termReplacements.put("Stew", "To simmer slowly in enough liquid to cover.");
-        termReplacements.put("Stir Fry", "To cook in a frying pan or wok over high heat in a small amount of fat, stirring constantly.");
-        termReplacements.put("Sweat", "To cook gently, usually in butter, a bit of oil, or the foods own juices to soften but not brown the food." );
-        termReplacements.put("Toast", "To brown with dry heat in an oven or toaster.");
-        termReplacements.put("Whip", "To beat rapidly with a wire whisk, beater or electric mixer to incorporate air, lighten and increase volume.");
-        termReplacements.put("Zest", "To grate the outer, colored portion of the skin of a citrus fruit, avoiding the white pith. The thin parings that result are also called the zest.");
+        termReplacements.put("julienne","To cut meat, vegetables or fruit into long, very thin strips");
+        termReplacements.put("marinate", "To let food stand in seasonings that include at least one wet ingredient to tenderize and increase the flavor.");
+        termReplacements.put("mince", "To cut or chop food into very small pieces.");
+        termReplacements.put("parboil", "To cook food in a boiling liquid just until partially done. Cooking may be completed using another method or at another time");
+        termReplacements.put("pare", "To remove the outer peel or skin of a fruit or vegetable with a knife.");
+        termReplacements.put("poach", "To cook slowly in a liquid such as water, seasoned water, broth or milk, at a temperature just below the boiling point.");
+        termReplacements.put("prove", "To let dough or yeast mixture rise before baking.");
+        termReplacements.put("purée", "To put food through a sieve, blender or food processor in order to produce a thick pulp.");
+        termReplacements.put("render","To meld solid fat (eg from beef or pork) slowly in the oven.");
+        termReplacements.put("roast","To cook meat or vegetables in an uncovered pan in an oven using dry heat.");
+        termReplacements.put("sauté","To brown or cook meat, fish, vegetables or fruit in a small amount of fat ");
+        termReplacements.put("scald", "To heat milk until just below the boiling point, when you will see tiny bubbles appearing around the edges of the pan.");
+        termReplacements.put("score", "To make shallow slits into the food, usually in a rectangular or diamond pattern.");
+        termReplacements.put("sear","To cook meat quickly at high heat to seal the surface of the meat and produce a brown color.");
+        termReplacements.put("shred","To cut into long thin strips with a knife or shredder.");
+        termReplacements.put("simmer","To cook in liquid that is just below the boiling point. Bubbles will form slowly and burst before reaching the surface.");
+        termReplacements.put("sliver", "To cut into long thin pieces with a knife");
+        termReplacements.put("steam", "To cook in a covered container over boiling water. The container should have small holes in it to allow the steam from the water to rise.");
+        termReplacements.put("steep", "To let a food stand for a few minutes in just boiled water to increase flavor and color.");
+        termReplacements.put("stew", "To simmer slowly in enough liquid to cover.");
+        termReplacements.put("stir fry", "To cook in a frying pan or wok over high heat in a small amount of fat, stirring constantly.");
+        termReplacements.put("sweat", "To cook gently, usually in butter, a bit of oil, or the foods own juices to soften but not brown the food." );
+        termReplacements.put("toast", "To brown with dry heat in an oven or toaster.");
+        termReplacements.put("whip", "To beat rapidly with a wire whisk, beater or electric mixer to incorporate air, lighten and increase volume.");
+        termReplacements.put("zest", "To grate the outer, colored portion of the skin of a citrus fruit, avoiding the white pith. The thin parings that result are also called the zest.");
     }
     
     // επεξήγηση των περίπλοκων όρων
-     public void simplifyTerms(String text) {
+     public String simplifyTerms(String text) {
         // χωρίζω το κείμενο σε λέξεισ
+        text = text.toLowerCase();
         String[] words = text.split("\\s+");
-
+        StringBuilder result = new StringBuilder();
         // τσεκάρω τισ λέξεισ για δύσκολουσ μαγειρικούς όρους
         for (String word : words) {
             if (termReplacements.containsKey(word)) {
                 String definition = termReplacements.get(word);
-                System.out.println("Term: " + word);
-                System.out.println("Definition: " + definition);
-                System.out.println(" ");
+                result.append("Term: ").append(word).append("\nDefinition: ").append(definition).append("\n\n");
             }
         }
+        return result.toString();
      }
-    public void RecipeFormat(String aiGeneratedRecipeJson) {
-        // Desired number of servings
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter a number: ");
-        int desiredServings = scanner.nextInt();
-        scanner.close();
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            // Parse the AI-generated JSON response
-            JsonNode recipeJson = objectMapper.readTree(aiGeneratedRecipeJson);
-            JsonNode recipe = recipeJson.get("recipe");
-            int originalServings = recipe.get("servings").asInt();
-            ArrayNode ingredients = (ArrayNode) recipe.get("ingredients");
-        
-            // Adjust the recipe
-            ArrayNode adjustedIngredients = adjustServings(ingredients, originalServings, desiredServings);
-        
-            // Display the adjusted recipe
-            System.out.println("Adjusted Recipe for " + desiredServings + " servings:");
-            for (JsonNode ingredient : adjustedIngredients) {
-                System.out.println(ingredient.get("name").asText() + ": " + ingredient.get("quantity").asDouble());
-            }
-            boolean isRecipeValid = validateRecipe(aiGeneratedRecipeJson);
-        
-            // Display validation result
-            if (isRecipeValid) {
-                System.out.println("The recipe appears to be valid.");
-            } else {
-                System.out.println("The recipe contains errors or unusual combinations.");
-            }
-        }catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
     
     public static ArrayNode adjustServings(ArrayNode ingredients, int originalServings, int desiredServings) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -195,7 +161,7 @@ public class ResponseCheck {
     return false; // Word not found in the text
     }
 
-    public static String AllergyCheck(String aiText, String allergy) throws Allergyexception {
+    public String AllergyCheck(String aiText, String allergy) throws Allergyexception {
         boolean found = isWordInText(aiText, allergy);
         if(found) {
             throw new Allergyexception("Allergy found in the recipe");
@@ -207,7 +173,7 @@ public class ResponseCheck {
         }
     }
 
-    public static void PreferencesCheck(String aiText, ArrayList<String> ingredients){
+    public void PreferencesCheck(String aiText, ArrayList<String> ingredients){
         int counter = 0;
         for (String ingredient : ingredients) {
             boolean found = isWordInText(aiText, ingredient);
@@ -218,9 +184,92 @@ public class ResponseCheck {
             }
         }
     }
+
+    public String extractRecipeContent(String aiResponse) { //recipe format 1
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode rootNode = mapper.readTree(aiResponse);
+
+            JsonNode choicesNode = rootNode.get("choices").get(0);
+            JsonNode messageNode = choicesNode.get("message");
+            String content = messageNode.get("content").asText();
+            String processedContent = content.replace("??", "é");
+            return processedContent;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ""; // Return empty string in case of any error
+        }
+    }
+
+     public static Recipe parseRecipe(String recipeString) {//2
+        Recipe recipe = new Recipe();
+        // Split recipe into name, ingredients, and steps
+        String[] parts = recipeString.split(": ", 2); // Split by the first occurrence of ": "
+        recipe.setName(parts[0]); // First part is the name
+
+        String[] stepsAndDescription = parts[1].split("\\. "); // Split the remaining part by ". " to get steps and description
+        String[] steps = new String[stepsAndDescription.length - 1];
+        for (int i = 0; i < stepsAndDescription.length - 1; i++) {
+            steps[i] = stepsAndDescription[i] + ".";
+        }
+        recipe.setSteps(steps); // Steps are everything before the last sentence
+
+        // Last sentence is typically the description, but it might vary
+        String description = stepsAndDescription[stepsAndDescription.length - 1];
+        // Assuming the description is not a step, add it to the steps list
+        recipe.setDescription(description);
+
+        // Ingredients extraction might vary based on how they are structured in your recipes
+        // Here, I'm using a simple approach of splitting by commas and "and"
+        String[] ingredients = parts[1].split("\\. ")[0].split(", and |, | and ");
+        recipe.setIngredients(ingredients);
+
+        return recipe;
+    }
 }
 class Allergyexception extends Exception {
     public Allergyexception(String message) {
         super(message);
+    }
+}
+class Recipe {
+    private String name;
+    private String[] ingredients;
+    private String[] steps;
+    private String description;
+
+    // Getters and setters
+    // ...
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String[] getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String[] ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public String[] getSteps() {
+        return steps;
+    }
+
+    public void setSteps(String[] steps) {
+        this.steps = steps;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
