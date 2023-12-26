@@ -16,19 +16,23 @@ public class OpenAICommunication {
     private static final String endpoint = "https://api.openai.com/v1/chat/completions";
     HttpURLConnection connection;
 
+    // constructor of the class
     public OpenAICommunication() {
         connection = null;
     }
 
+    // method to open the connection
     public void openConnection() {
         URL url = null;
         try {
+            // url connection to the endpoint
             url = new URL(endpoint);
         } catch (MalformedURLException e) {
             System.err.println("Invalid url: " + e);
             System.exit(1);
         }
         try {
+            // openning the connection and catching some exceptions
             connection = (HttpURLConnection) url.openConnection(); // openning connection
         } catch (ClassCastException e) {
             System.err.println("Specified protocol is not HTTP.");
@@ -44,7 +48,7 @@ public class OpenAICommunication {
 
     public void sendRequest(String userQuestion) {
         try {
-            connection.setRequestMethod("POST"); // indicating that i will be sending data to the model
+            connection.setRequestMethod("POST"); // to indicate that i will be sending data to the model
         } catch (ProtocolException e) {
             e.printStackTrace();
         }
@@ -54,8 +58,10 @@ public class OpenAICommunication {
                 "Bearer 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"); // key
 
         try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
+
             // Create ObjectMapper object
             ObjectMapper objectMapper = new ObjectMapper();
+
             // Create the paylod of the json object
             ObjectNode payloadJson = objectMapper.createObjectNode();
             payloadJson.put("model", "gpt-3.5-turbo");
@@ -66,13 +72,15 @@ public class OpenAICommunication {
             payloadJson.set("messages", objectMapper.createArrayNode().add(message));
             payloadJson.put("temperature", 0.7);
 
-            wr.writeBytes(objectMapper.writeValueAsString(payloadJson));
+            wr.writeBytes(objectMapper.writeValueAsString(payloadJson)); // writing the payload
+                                                                         // to the outputStream
             wr.flush();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // At this point we have made the connection to the server and sent the user's
+        // At this point we have made the connection to the api and sent the user's
         // request.
         // We are now awaiting the response.
     }
@@ -82,11 +90,12 @@ public class OpenAICommunication {
         StringBuilder response = new StringBuilder();
         try {
             int responseCode = connection.getResponseCode();
-            System.out.println("Response Code: " + responseCode);
+            System.out.println("Response Code: " + responseCode); // code=200 if i have an answer
         } catch (IOException e) {
             e.printStackTrace();
         }
         try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            // building the api's response
             String c;
             while ((c = in.readLine()) != null) {
                 response.append(c.trim());
@@ -97,9 +106,19 @@ public class OpenAICommunication {
         return response.toString();
     }
 
+    // method to close the connection
     public void closeConnection() {
         if (connection != null) {
             connection.disconnect();
         }
+    }
+
+    public static String processQuestion(String userQuestion) {
+        OpenAICommunication openAI = new OpenAICommunication();
+        openAI.openConnection();
+        openAI.sendRequest(userQuestion);
+        String response = openAI.receiveResponse();
+        openAI.closeConnection();
+        return response;
     }
 }
