@@ -29,6 +29,11 @@ public class UserQuery {
         
         InappropriateContent inobj = new InappropriateContent(query);
         double inappropriateContent = inobj.checkContent();
+        if (inappropriateContent >= 0.5) {
+            System.out.println("Your query contains inappropriate content. Please enter another query");
+            String newQuery = input.nextLine(); //the user enters the query again
+            setQuery(newQuery);// place the new query in the query variables
+        }
         String mquery = getQuery();
         return mquery;
     }
