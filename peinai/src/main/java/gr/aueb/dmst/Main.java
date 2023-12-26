@@ -65,5 +65,6 @@ public class Main {
                     "If you wish to quit please enter 0. If you wish to continue, please enter 1");
             choise = sc.nextInt();
         }
+        sc.close();
     }
 }
