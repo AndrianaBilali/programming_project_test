@@ -27,8 +27,7 @@ public class InappropriateContent {
             String result = input.substring(17);
             double doubletoxicity = Double.parseDouble(result);
 
-            // Print the toxicity score
-            System.out.println("Toxicity: " + doubletoxicity);
+            // Return the toxicity score
             return doubletoxicity;
         }
 
