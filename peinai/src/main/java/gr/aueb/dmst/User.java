@@ -20,6 +20,7 @@ import jakarta.persistence.OneToOne;
 //used for the calculation of the user's age
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeParseException; // Import for handling date parsing exceptions
 
 /*instances of the class should be treated as JPA entities, and their state
 will be persisted to the database.*/
@@ -82,7 +83,6 @@ public class User {
     }
 
     public void setPassword(String password) {
-        // Hash the password using
         this.password = hashPassword(password);
     }
 
@@ -91,9 +91,15 @@ public class User {
         return hashPassword(rawPassword).equals(this.password);
     }
 
-    private String hashPassword(String password) {
-        // using Apache Commons Codec DigestUtils
-        return DigestUtils.sha256Hex(password);
+    // Protected method to hash the password using Apache Commons Codec DigestUtils
+    protected String hashPassword(String password) {
+        try {
+            // using Apache Commons Codec DigestUtils
+            return DigestUtils.sha256Hex(password);
+        } catch (Exception e) {
+            // Handle hashing errors
+            throw new RuntimeException("Error hashing password", e);
+        }
     }
 
     public String getGender() {
@@ -112,20 +118,26 @@ public class User {
         return birthDate;
     }
 
+    // method for calculating user's age
     public int calculateAge() {
-        if (birthDate == null) {
-            return 0;
+        try {
+            if (birthDate == null) {
+                return 0;
+            }
+
+            LocalDate currentDate = LocalDate.now();
+
+            if (birthDate.isAfter(currentDate)) {
+                return 0;
+            }
+
+            Period period = Period.between(birthDate, currentDate);
+
+            return period.getYears();
+        } catch (DateTimeParseException e) {
+            // Handle date parsing errors
+            throw new RuntimeException("Error calculating age", e);
         }
-
-        LocalDate currentDate = LocalDate.now();
-
-        if (birthDate.isAfter(currentDate)) {
-            return 0;
-        }
-
-        Period period = Period.between(birthDate, currentDate);
-
-        return period.getYears();
     }
 
     // Getters and setters for Preferences
