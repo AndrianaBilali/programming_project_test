@@ -136,4 +136,38 @@ public class User {
     public Preferences getPreferences() {
         return preferences;
     }
+
+    //Exception Handling
+    public User(String username, String password, LocalDate birthDate) {
+        try {
+            validateUsername(username);
+            validatePassword(password);
+            validateBirthDate(birthDate);
+
+            this.username = username;
+            this.password = hashPassword(password);
+            this.birthDate = birthDate;
+
+        } catch (IllegalArgumentException e) {
+            System.err.println("User creation failed: " + e.getMessage());
+        }
+    }
+
+    private void validateUsername(String username) {
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be null or empty");
+        }
+    }
+
+    private void validatePassword(String password) {
+        if (password == null || password.length() < 8) {
+            throw new IllegalArgumentException("Password must be at least 8 characters long");
+        }
+    }
+
+    private void validateBirthDate(LocalDate birthDate) {
+        if (birthDate.isAfter(LocalDate.now())) {
+            throw new IllegalArgumentException("Invalid birth date");
+        }
+    }
 }
