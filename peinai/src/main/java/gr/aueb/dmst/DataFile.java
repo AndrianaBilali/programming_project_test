@@ -4,12 +4,13 @@ import java.io.*;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.nio.file.InvalidPathException;
 
 public class DataFile {
 
     // Saves AI responses after post-processing the data
-
+    private static final String FILE_PATH = "data/browsing-history.txt";
     private static File outputFile;
     private String question;
     private String response;
@@ -28,62 +29,73 @@ public class DataFile {
         return response;
     }
 
-    // Creates file based on a filepath based on some customised parameters
-    public static void createFile(String filePath) {
+    // Creates file το FILE_PATH based on some customised parameters
+    public static void createFile() {
 
         // Ensures that the file does not exists before creating it
-        outputFile = new File(filePath);
-        if (isPathValid(filePath) && createDirectory(filePath)) {
+        outputFile = new File(FILE_PATH);
+        if (isPathValid(FILE_PATH)) {
             try {
                 if (outputFile.createNewFile()) {
-                    System.out.println("File created: " + filePath);
+                    System.out.println("File created: " + FILE_PATH);
                 } else {
-                    System.out.println("File already exists: " + filePath);
+                    System.out.println("File already exists: " + FILE_PATH);
                 }
             } catch (IOException e) {
                 System.err.println("Error creating file: " + e.getMessage());
             }
         } else {
-            System.out.println("Failed to create file " + filePath + ". Check path and/or directory.");
+            System.out.println("Failed to create file " + FILE_PATH + ". Check path and/or directory.");
         }
 
     }
 
-    // File creation's parameters
+    // File creation's parameter
+    /*
+     * The method isPathValid are private
+     * but for testing purposes they have been modified to be public
+     */
 
-    // Checks if the path in null or empty
-    private static boolean isPathValid(String filePath) {
-        return filePath != null && !filePath.trim().isEmpty();
-    }
-
-    // Checks if the directory of the file exists and if it does not, it creates it
-    private static boolean createDirectory(String filePath) {
-        File file = new File(filePath);
-        File parentDir = file.getParentFile();
-
-        if (parentDir != null && !parentDir.exists()) {
-            return parentDir.mkdirs();
-        }
-
-        return true;
+    // Checks if the path in null or empty in case of a change from the project's
+    // team
+    public static boolean isPathValid(String filepath) {
+        return filepath != null && !filepath.trim().isEmpty();
     }
 
     // Counts the byte size of the specific file
+    /*
+     * try (var buff = new BufferedInputStream(new
+     * FileInputStream(outputFile.getName()))) {
+     * return Files.size(Paths.get(outputFile.getPath()));
+     */
+
+    /*
+     * } catch (FileNotFoundException e) {
+     * System.err.println("Unable to open file " + outputFile.getName() + ": " +
+     * e.getMessage());
+     * return -1L;
+     * } catch (IOException e) {
+     * System.err.println("Error reading byte: " + e.getMessage());
+     * return -1L;
+     */
     public long byteCount() {
 
-        try (var buff = new BufferedInputStream(new FileInputStream(outputFile.getName()))) {
-            return Files.size(Paths.get(outputFile.getPath()));
-        } catch (FileNotFoundException e) {
-            System.err.println("Unable to open file " + outputFile.getName() + ": " + e.getMessage());
-            return -1;
-        } catch (IOException e) {
-            System.err.println("Error reading byte: " + e.getMessage());
-            return -1;
+        try (var buff = new BufferedInputStream(new FileInputStream(outputFile.getPath()))) {
+            // return Files.size(Paths.get(outputFile.getPath()));
+            System.out.println("File exists: " + outputFile.exists());
+            System.out.println("File length: " + outputFile.length());
+            return outputFile.length();
         } catch (InvalidPathException e) {
             System.err.println("Unable to convert path string into sa path");
-            return -1;
-        }
+            return -1L;
 
+        } catch (FileNotFoundException e) {
+            System.err.println("Unable to open file " + outputFile.getName() + ": " + e.getMessage());
+            return -1L;
+        } catch (IOException e) {
+            System.err.println("Error reading byte: " + e.getMessage());
+            return -1L;
+        }
     }
 
     // Writes post-processed data into the file
@@ -91,8 +103,9 @@ public class DataFile {
     public void dataWriter() {
 
         try (var buff = new BufferedWriter(new FileWriter(outputFile))) {
-            buff.write("Q: " + this.question + "\nA:" + this.response + "\n\n");
+            buff.write("Q: " + question + "\nA: " + response + "\n\n");
             buff.close();
+            System.out.println("Data writing was successful");
         } catch (FileNotFoundException e) {
             System.err.println("Unable to open file " + outputFile + ": " + e.getMessage());
         } catch (IOException e) {
@@ -119,4 +132,12 @@ public class DataFile {
 
     }
 
+    public static void main(String[] args) {
+        DataFile datafile = new DataFile("Question", "Answer");
+        DataFile.createFile();
+        datafile.dataWriter();
+        long byteCount = datafile.byteCount();
+
+        System.out.println("Byte Count: " + byteCount);
+    }
 }
