@@ -149,20 +149,21 @@ public class User {
         return preferences;
     }
 
-    //Exception Handling
-    public User(String username, String password, LocalDate birthDate) {
-        try {
-            validateUsername(username);
-            validatePassword(password);
-            validateBirthDate(birthDate);
+    // Exception Handling
+    public User(String username, String password, String email, String gender, LocalDate birthDate,
+            Preferences preferences) {
+        validateUsername(username);
+        validatePassword(password);
+        validateEmail(email);
+        validateGender(gender);
+        validateBirthDate(birthDate);
 
-            this.username = username;
-            this.password = hashPassword(password);
-            this.birthDate = birthDate;
-
-        } catch (IllegalArgumentException e) {
-            System.err.println("User creation failed: " + e.getMessage());
-        }
+        this.username = username;
+        this.password = hashPassword(password);
+        this.email = email;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.preferences = preferences;
     }
 
     private void validateUsername(String username) {
@@ -174,6 +175,24 @@ public class User {
     private void validatePassword(String password) {
         if (password == null || password.length() < 8) {
             throw new IllegalArgumentException("Password must be at least 8 characters long");
+        }
+    }
+
+    private void validateEmail(String email) {
+        // check for non-null and non-empty
+        if (email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("Email cannot be null or empty");
+        }
+    }
+
+    private void validateGender(String gender) {
+        // check for valid input for gender
+        if (!"female".equals(gender) && !"male".equals(gender) && !"other".equals(gender)) {
+            throw new IllegalArgumentException("Invalid input");
+        }
+        // check for not null gender
+        if (gender == null) {
+            throw new IllegalArgumentException("Gender cannot be null");
         }
     }
 

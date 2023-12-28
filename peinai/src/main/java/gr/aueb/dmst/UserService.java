@@ -19,7 +19,7 @@ public class UserService {
     }
 
     public static boolean signUp(String username, String password, String email, String gender, LocalDate birthDate,
-                                 String allergy, Set<String> favIngredients, Set<String> worstIngredients) {
+            String allergy, Set<String> favIngredients, Set<String> worstIngredients) {
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
 
@@ -30,7 +30,8 @@ public class UserService {
             }
 
             // Create user and preferences objects
-            User user = new User();
+            User user = new User(username, password, email, gender, birthDate,
+                    new Preferences(allergy, favIngredients, worstIngredients));
             user.setUsername(username);
             user.setPassword(password);
             user.setEmail(email);
