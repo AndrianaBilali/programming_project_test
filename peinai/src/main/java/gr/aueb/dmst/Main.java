@@ -5,14 +5,19 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        // initializing the scanner
+        // Initializing the scanner
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Welcome to Peinai!");
         System.out.println(
                 "If you wish to quit please enter 0. If you wish to continue, please enter 1");
         int choise = sc.nextInt();
-        // the app starts if the user enters
+        // Creating OpenAiCommunication object
+        // The connection opens here because we don't want it to open and close evrry
+        // time in the loop
+        OpenAICommunication openAI = new OpenAICommunication();
+        openAI.openConnection();
+        // The app starts if the user enters
         while (choise == 0) {
             // user profile here
             // if we have the same user then no need to ask for credentials
@@ -20,10 +25,10 @@ public class Main {
             // start
 
             System.out.println("Please enter the ingredients that you want your meal to contain ");
-            // initialization of the ArrayList that contains the ingredients
+            // Initialization of the ArrayList that contains the ingredients
             ArrayList<String> ingredients = new ArrayList<String>();
 
-            // loop for the input of the ingredients
+            // Loop for the input of the ingredients
             int c = 1;
             while (true) {
                 System.out.println("Please enter ingredient number " + c);
@@ -37,34 +42,47 @@ public class Main {
                 }
             }
 
-            // verification of the ingredients
+            // Verification of the ingredients
             System.out.println("The ingredients you have are: ");
             for (String value : ingredients) {
                 System.out.println(value);
             }
 
-            // appending the user question to send it to the api.
+            // Appending the user question to send it to the api.
             String userQuestion = "Can you give me a recipe with the following ingredients: "
                     + ingredients.toString();
 
-            // creating OpenAiCommunication object
-            OpenAICommunication openAI = new OpenAICommunication();
-            openAI.openConnection();
+            // Pre process of the user's question
+            // Object with the question as a parameter
+            UserQuery m = new UserQuery(userQuestion);
+            // Calling the method that processes everything on the object
+            String modifiedUserQuestion = m.modify();
 
-            // Nefeli pre process
-            // i have a result of type string
-            // i will probably have a loop here in case i need to send again
-            openAI.sendRequest(userQuestion);
+            openAI.sendRequest(modifiedUserQuestion);
             String apiResponse = openAI.receiveResponse();
             // Celia
-            // I will probably need a second loop
+            // I will probably need a second loop for post processing
             System.out.println(apiResponse);
 
-            // asking again if the user wants to quit the app.
+            // The recipe will be saved in a file
+            DataFile datafile = new DataFile(modifiedUserQuestion, apiResponse); // remember to use the modified api
+                                                                                 // response
+            System.out.println("Your recipe will now be saved in a file...");
+            // Creating the file if it doesn't exist
+            DataFile.createFile();
+            // Saving the ingredients and recipe in the file
+            datafile.dataWriter();
+            // Counting the bytes of the file
+            long byteCount = datafile.byteCount();
+            System.out.println("The recipe has successfully been saved to the file!");
+
+            // Asking again if the user wants to quit the app
             System.out.println(
                     "If you wish to quit please enter 0. If you wish to continue, please enter 1");
             choise = sc.nextInt();
         }
+        // Closing the connection and Scanner when the user quits the app
+        openAI.closeConnection();
         sc.close();
     }
 }
