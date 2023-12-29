@@ -2,7 +2,6 @@ package gr.aueb.dmst;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.AfterEach;

@@ -2,9 +2,6 @@ package gr.aueb.dmst;
 
 import java.io.*;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.Path;
 import java.nio.file.InvalidPathException;
 
 public class DataFile {
@@ -63,21 +60,6 @@ public class DataFile {
     }
 
     // Counts the byte size of the specific file
-    /*
-     * try (var buff = new BufferedInputStream(new
-     * FileInputStream(outputFile.getName()))) {
-     * return Files.size(Paths.get(outputFile.getPath()));
-     */
-
-    /*
-     * } catch (FileNotFoundException e) {
-     * System.err.println("Unable to open file " + outputFile.getName() + ": " +
-     * e.getMessage());
-     * return -1L;
-     * } catch (IOException e) {
-     * System.err.println("Error reading byte: " + e.getMessage());
-     * return -1L;
-     */
     public long byteCount() {
 
         try (var buff = new BufferedInputStream(new FileInputStream(outputFile.getPath()))) {
@@ -132,12 +114,14 @@ public class DataFile {
 
     }
 
-    public static void main(String[] args) {
-        DataFile datafile = new DataFile("Question", "Answer");
-        DataFile.createFile();
-        datafile.dataWriter();
-        long byteCount = datafile.byteCount();
-
-        System.out.println("Byte Count: " + byteCount);
-    }
+    /*
+     * public static void main(String[] args) {
+     * DataFile datafile = new DataFile("Question", "Answer");
+     * DataFile.createFile();
+     * datafile.dataWriter();
+     * long byteCount = datafile.byteCount();
+     * 
+     * System.out.println("Byte Count: " + byteCount);
+     * }
+     */
 }
