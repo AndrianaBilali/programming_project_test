@@ -1,7 +1,11 @@
 package gr.aueb.dmst;
 
 import java.util.Scanner;
+import java.util.Set;
+import java.util.prefs.Preferences;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,6 +23,76 @@ public class Main {
         openAI.openConnection();
         // The app starts if the user enters
         while (choise == 0) {
+
+            // sign up part
+            // user information
+            // username
+            System.out.print("Enter username: ");
+            String username = sc.nextLine();
+            // password
+            System.out.print("\nEnter password: ");
+            String password = sc.nextLine();
+            // email
+            System.out.print("\nEnter email: ");
+            String email = sc.nextLine();
+            // gender
+            System.out.print("\nEnter gender (female/male/other): ");
+            String gender = sc.nextLine();
+            // birth date
+            System.out.print("\nEnter birth date (YYYY-MM-DD): ");
+            String birthDateString = sc.nextLine();
+            LocalDate birthDate = LocalDate.parse(birthDateString);
+
+            System.out.print("\nEnter allergy: ");
+            System.out.print("If you have no allergies press 'n'");
+            String allergy = sc.nextLine();
+
+            // preferences information
+            // favorite ingredients of the user
+            Set<String> favIngredients = new HashSet<>();
+            System.out.println("Enter favorite ingredients (type 'exit' to stop):");
+            while (true) {
+                System.out.print("Enter an ingredient: ");
+                // read the ingredient and trim amy accidental whitespaces
+                String input = sc.nextLine().trim();
+                if (input.equalsIgnoreCase("exit")) {
+                    break;
+                }
+                favIngredients.add(input);
+            }
+            // verification of the favorite ingredients
+            System.out.println("Your favorite ingredients: " + favIngredients);
+
+            // ingredients the user does not like
+            Set<String> worstIngredients = new HashSet<>();
+            System.out.println("Enter ingredients you don't like (type 'exit' to stop):");
+            while (true) {
+                System.out.print("Enter an ingredient: ");
+                // read the ingredient and trim amy accidental whitespaces again
+                String input2 = sc.nextLine().trim();
+                if (input2.equalsIgnoreCase("exit")) {
+                    break;
+                }
+                worstIngredients.add(input2);
+            }
+            System.out.println("Ingredients you don't like: " + favIngredients);
+
+            // Create Preferences object
+            Preferences preferences = new Preferences(allergy, favIngredients, worstIngredients);
+            // Create User object (create new user)
+            User user = new User(username, password, email, gender, birthDate, preferences);
+
+            // display the user profile
+            System.out.println("User Profile: ");
+            System.out.println("Username: " + user.getUsername());
+            System.out.println("Email: " + user.getEmail());
+            System.out.println("Gender: " + user.getGender());
+            System.out.println("Age: " + user.calculateAge());
+            System.out.println("Preferences: ");
+            System.out.println("Allergy: " + preferences.getAllergy());
+            System.out.println("Favorite Ingredients: " + preferences.getFavIngredients());
+            System.out.println("Worst Ingredients: " + preferences.getWorstIngredients());
+
             // user profile here
             // if we have the same user then no need to ask for credentials
             // we want to keep the username throughout the loop and check it here at the
