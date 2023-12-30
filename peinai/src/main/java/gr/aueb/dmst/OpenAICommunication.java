@@ -23,6 +23,16 @@ public class OpenAICommunication {
 
     // method to open the connection
     public void openConnection() {
+        /*
+         * URI endpoint;
+         * try {
+         * endpoint = new URI("https", "api.openai.com", "/v1/chat/completions", null,
+         * null);
+         * } catch (URISyntaxException e) {
+         * e.printStackTrace();
+         * }
+         */
+
         URL url = null;
         try {
             // url connection to the endpoint
