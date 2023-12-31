@@ -1,4 +1,4 @@
-package test.java;
+package  gr.aueb.dmst;
 import org.junit.Before;
 import org.junit.Test;
 
