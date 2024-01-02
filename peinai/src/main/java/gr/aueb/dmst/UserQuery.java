@@ -6,6 +6,7 @@ public class UserQuery {
     private String query ;
     Scanner input = new Scanner(System.in); // declaration and initializtion of a Scanner object
     // receives the user's query 
+    
     UserQuery(String query) {
         this.query = query;
     }
@@ -55,6 +56,7 @@ public class UserQuery {
             System.out.println("You have not entered a query. Please try again");
             String newQuery = input.nextLine(); //the user enters the query again
             query = newQuery;// place the new query in the query variable
+            
             }
         }
     // removes the newline characters and tabs from the query    
