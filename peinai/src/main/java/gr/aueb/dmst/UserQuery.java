@@ -1,4 +1,4 @@
-package main.java.gr.aueb.dmst ;
+package gr.aueb.dmst;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -67,6 +67,7 @@ public class UserQuery {
                 System.out.println("The query doesn't contain latin characters. Please reenter your query in the English language");
                 String newQuery = input.nextLine(); //the user enters the query again
                 query = newQuery;// place the new query in the query variable
+                
         }
         
     }

@@ -104,39 +104,34 @@ public class ResponseCheck {
         return adjustedIngredients;
     }
 
-    public static boolean validateRecipe(String aiGeneratedRecipeJson) {
+    public static boolean validateRecipe(Recipe recipe) {
         boolean isValid = true;
         try{
-        // Parse the AI-generated JSON response
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode recipeJson = objectMapper.readTree(aiGeneratedRecipeJson);
+            String[] ingredients = recipe.getIngredients();
+            List<String> cleanedIngredients = new ArrayList<>();
+            for (String ingredient : recipe.getIngredients()) {
 
-        JsonNode recipe = recipeJson.get("recipe");
-        JsonNode ingredients = recipe.get("ingredients");
-        JsonNode steps = recipe.get("steps");
-
-        
-        // Check ingredient quantities
-        for (JsonNode ingredient : ingredients) {
-            double quantity = ingredient.get("quantity").asDouble();
-
-            if (quantity <= 0) {
+            // Example: Check if the ingredient is not empty
+            if (ingredient.isEmpty()) {
                 isValid = false;
-                System.out.println("Invalid quantity for ingredient: " + ingredient.get("name").asText());
+                System.out.println("Empty ingredient found.");
+            }else{
+                cleanedIngredients.add(ingredient);
             }
-        
-        }
-        // Check recipe steps
-         for (JsonNode step : steps) {
-            String stepText = step.asText();
-
-            // Perform validation on each step (e.g., checking for missing instructions)
-            if (stepText.isEmpty()) {
+            }
+            recipe.setIngredients(cleanedIngredients.toArray(new String[0]));
+            String[] steps = recipe.getSteps();
+            List<String> cleanedSteps = new ArrayList<>();
+            for (String step : recipe.getSteps()) {
+            // Example: Check if the step is not empty
+            if (step.isEmpty()) {
                 isValid = false;
                 System.out.println("Empty step found.");
+            } else {
+                cleanedSteps.add(step);
             }
-            // Add more step validation as needed
-        }
+            }
+            recipe.setSteps(cleanedSteps.toArray(new String[0]));
         } catch (Exception e) {
         e.printStackTrace();
         isValid = false;
@@ -161,7 +156,7 @@ public class ResponseCheck {
     return false; // Word not found in the text
     }
 
-    public String AllergyCheck(String aiText, String allergy) throws Allergyexception {
+    public static String AllergyCheck(String aiText, String allergy) throws Allergyexception {
         boolean found = isWordInText(aiText, allergy);
         if(found) {
             throw new Allergyexception("Allergy found in the recipe");
@@ -226,6 +221,28 @@ public class ResponseCheck {
 
         return recipe;
     }
+    public Recipe PostProcessingfirst(String aiGeneratedRecipeJson,ArrayList<String> ingredients,String Allergy ){
+        try {
+        String recipe = extractRecipeContent(aiGeneratedRecipeJson);
+        recipe = SpellingAndGrammarCheck(recipe);
+        String Allergies = AllergyCheck(recipe, Allergy); 
+        PreferencesCheck(recipe, ingredients);
+        System.out.println(Allergies);
+        String unknownterms = simplifyTerms(recipe);
+        System.out.println(unknownterms);
+        Recipe structuredrecipe = parseRecipe(recipe);
+        boolean valid = validateRecipe(structuredrecipe);
+
+        return structuredrecipe;
+        } catch (Exception e) {
+            e.printStackTrace(); 
+            System.out.println("Error occurred during post-processing"); 
+            return null;
+        }
+    }
+
+
+        
 }
 class Allergyexception extends Exception {
     public Allergyexception(String message) {

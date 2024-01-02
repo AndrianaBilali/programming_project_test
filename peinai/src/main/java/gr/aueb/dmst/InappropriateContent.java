@@ -1,4 +1,4 @@
-package main.java.gr.aueb.dmst;
+package gr.aueb.dmst;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

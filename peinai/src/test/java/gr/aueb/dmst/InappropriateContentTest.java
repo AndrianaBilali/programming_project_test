@@ -1,8 +1,8 @@
-package test.java;
+package gr.aueb.dmst;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.*;
-import com.example.InappropriateContent;
+
 public class InappropriateContentTest {
 
     @Test

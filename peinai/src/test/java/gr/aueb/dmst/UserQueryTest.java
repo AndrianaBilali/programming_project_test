@@ -1,18 +1,15 @@
-package test.java;
-import org.junit.Before;
-import org.junit.Test;
+package gr.aueb.dmst;
 
-import com.example.InappropriateContent;
-import com.example.UserQuery;
-import static org.junit.Assert.assertEquals;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
 
 public class UserQueryTest {
 
     public UserQuery userQuery;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         // Initialization of userQuery before each test
         userQuery = new UserQuery("tell me a recipy that");

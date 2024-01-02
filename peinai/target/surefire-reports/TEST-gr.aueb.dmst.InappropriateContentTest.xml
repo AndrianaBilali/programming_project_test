@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="gr.aueb.dmst.AppTest" time="3.939" tests="11" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="gr.aueb.dmst.InappropriateContentTest" time="0.879" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="20"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -61,30 +61,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="64.0"/>
   </properties>
-  <testcase name="testPreferencesCheck_IngredientsFound" classname="gr.aueb.dmst.AppTest" time="0.033"/>
-  <testcase name="SpellingAndGrammarCheck" classname="gr.aueb.dmst.AppTest" time="3.026">
-    <system-err><![CDATA[SLF4J: No SLF4J providers were found.
-SLF4J: Defaulting to no-operation (NOP) logger implementation
-SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
-]]></system-err>
-  </testcase>
-  <testcase name="testParseRecipe" classname="gr.aueb.dmst.AppTest" time="0.0"/>
-  <testcase name="testAllergyCheck_AllergyNotFound" classname="gr.aueb.dmst.AppTest" time="0.0"/>
-  <testcase name="testSimplifyTerms_Mince" classname="gr.aueb.dmst.AppTest" time="0.0"/>
-  <testcase name="testAdjustServings" classname="gr.aueb.dmst.AppTest" time="0.157"/>
-  <testcase name="ExtractRecipeContent" classname="gr.aueb.dmst.AppTest" time="0.025"/>
-  <testcase name="testPreferencesCheck_IngredientsNotFound" classname="gr.aueb.dmst.AppTest" time="0.0"/>
-  <testcase name="testAllergyCheck_AllergyFound" classname="gr.aueb.dmst.AppTest" time="0.007"/>
-  <testcase name="testValidateRecipe_EmptyStepAndIngredient" classname="gr.aueb.dmst.AppTest" time="0.0">
-    <system-out><![CDATA[Empty ingredient found.
-Empty step found.
-]]></system-out>
-  </testcase>
-  <testcase name="testPostProcessingFirst" classname="gr.aueb.dmst.AppTest" time="0.661">
-    <system-out><![CDATA[the recipe doesn't contain tomatoes
-the recipe doesn't contain onions
-null
-
-]]></system-out>
-  </testcase>
+  <testcase name="testCheckContent" classname="gr.aueb.dmst.InappropriateContentTest" time="0.878"/>
 </testsuite>
