@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+
+
 import java.util.ArrayList;
 
 public class ResponseCheck {
@@ -85,7 +85,7 @@ public class ResponseCheck {
     public static boolean validateRecipe(Recipe recipe) {
         boolean isValid = true;
         try{
-            String[] ingredients = recipe.getIngredients();
+            
             List<String> cleanedIngredients = new ArrayList<>();
             for (String ingredient : recipe.getIngredients()) {
 
@@ -98,7 +98,7 @@ public class ResponseCheck {
             }
             }
             recipe.setIngredients(cleanedIngredients.toArray(new String[0]));
-            String[] steps = recipe.getSteps();
+            
             List<String> cleanedSteps = new ArrayList<>();
             for (String step : recipe.getSteps()) {
             // Example: Check if the step is not empty
@@ -150,9 +150,7 @@ public class ResponseCheck {
         int counter = 0;
         for (String ingredient : ingredients) {
             boolean found = isWordInText(aiText, ingredient);
-            if (found) {
-                counter ++;
-            } else {
+            if (found = false) {
                 System.out.println("the recipe doesn't contain " + ingredient);
             }
         }

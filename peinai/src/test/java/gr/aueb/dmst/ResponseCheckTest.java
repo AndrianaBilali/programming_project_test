@@ -2,9 +2,8 @@ package gr.aueb.dmst;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+
+
 public class ResponseCheckTest{
     ResponseCheck obj = new ResponseCheck();
     @Test
