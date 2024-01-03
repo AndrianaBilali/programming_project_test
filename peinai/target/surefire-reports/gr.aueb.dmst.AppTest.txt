@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: gr.aueb.dmst.AppTest
 -------------------------------------------------------------------------------
-Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.136 s -- in gr.aueb.dmst.AppTest
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.078 s -- in gr.aueb.dmst.AppTest

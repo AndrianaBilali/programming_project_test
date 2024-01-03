@@ -7,13 +7,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.ArrayList;
-import java.util.List;
+
 public class ResponseCheck {
     public String SpellingAndGrammarCheck(String aiAnswer) {
         try{
@@ -36,7 +35,7 @@ public class ResponseCheck {
             return null;
         }
     }
-    private Map<String, String> termReplacements = new HashMap<>();
+    private final Map<String, String> termReplacements = new HashMap<>();
     // Create a map of complex cooking terms and their simpler explanations
     public void createCookingDictionary() {
         termReplacements.put("julienne","To cut meat, vegetables or fruit into long, very thin strips");
@@ -82,27 +81,6 @@ public class ResponseCheck {
         return result.toString();
      }
     
-    public static ArrayNode adjustServings(ArrayNode ingredients, int originalServings, int desiredServings) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        ArrayNode adjustedIngredients = objectMapper.createArrayNode();
-
-        for (JsonNode ingredient : ingredients) {
-            String name = ingredient.get("name").asText();
-            double originalQuantity = ingredient.get("quantity").asDouble();
-
-            // Calculate the adjusted quantity based on desired servings
-            double adjustedQuantity = (originalQuantity / originalServings) * desiredServings;
-            
-            // Create a new JSON object for adjusted ingredient
-            ObjectNode adjustedIngredient = objectMapper.createObjectNode();
-            adjustedIngredient.put("name", name);
-            adjustedIngredient.put("quantity", adjustedQuantity);
-            
-            adjustedIngredients.add(adjustedIngredient);
-        }
-        
-        return adjustedIngredients;
-    }
 
     public static boolean validateRecipe(Recipe recipe) {
         boolean isValid = true;
@@ -232,7 +210,7 @@ public class ResponseCheck {
         System.out.println(unknownterms);
         Recipe structuredrecipe = parseRecipe(recipe);
         boolean valid = validateRecipe(structuredrecipe);
-
+        System.out.println("The recipe is " + valid);
         return structuredrecipe;
         } catch (Exception e) {
             e.printStackTrace(); 

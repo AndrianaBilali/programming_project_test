@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.JsonNode;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 public class AppTest{
     ResponseCheck obj = new ResponseCheck();
     @Test
@@ -39,34 +36,6 @@ public class AppTest{
     }
 
     @Test
-    public void testAdjustServings() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        ArrayNode ingredients = objectMapper.createArrayNode();
-
-        ObjectNode ingredient1 = objectMapper.createObjectNode();
-        ingredient1.put("name", "Flour");
-        ingredient1.put("quantity", 200);
-
-        ObjectNode ingredient2 = objectMapper.createObjectNode();
-        ingredient2.put("name", "Sugar");
-        ingredient2.put("quantity", 100);
-
-        ingredients.add(ingredient1);
-        ingredients.add(ingredient2);
-
-        int originalServings = 4;
-        int desiredServings = 8;
-
-        ArrayNode adjustedIngredients = obj.adjustServings(ingredients, originalServings, desiredServings);
-
-        // Assuming the adjustment is linear, 2x servings should double the quantities
-        double expectedFlourQuantity = 400;
-        double expectedSugarQuantity = 200;
-
-        assertEquals(expectedFlourQuantity, adjustedIngredients.get(0).get("quantity").asDouble());
-        assertEquals(expectedSugarQuantity, adjustedIngredients.get(1).get("quantity").asDouble());
-    }
-    @Test
     public void testValidateRecipe_EmptyStepAndIngredient() {
         Recipe recipe = new Recipe();
         String[] ingredients = {"Flour", "Sugar", ""};
@@ -75,7 +44,7 @@ public class AppTest{
         recipe.setIngredients(ingredients);
         recipe.setSteps(steps);
 
-        boolean isValid = obj.validateRecipe(recipe);
+        boolean isValid = ResponseCheck.validateRecipe(recipe);
 
         assertFalse(isValid); // Both empty step and empty ingredient found
         assertArrayEquals(new String[]{"Flour", "Sugar"}, recipe.getIngredients()); // Empty ingredient removed
@@ -87,7 +56,7 @@ public class AppTest{
         String allergy = "peanuts";
 
         Allergyexception exception = assertThrows(Allergyexception.class, () -> {
-            obj.AllergyCheck(aiText, allergy);
+            ResponseCheck.AllergyCheck(aiText, allergy);
         });
 
         assertEquals("Allergy found in the recipe", exception.getMessage());
@@ -99,7 +68,7 @@ public class AppTest{
         String allergy = "peanuts";
 
         assertDoesNotThrow(() -> {
-            String result = obj.AllergyCheck(aiText, allergy);
+            String result = ResponseCheck.AllergyCheck(aiText, allergy);
             assertNull(result);
         });
     }
