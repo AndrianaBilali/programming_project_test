@@ -10,7 +10,6 @@ public class InappropriateContentTest {
         // Προσοχή: Αυτό είναι ένα απλό JUnit τεστ που χρησιμοποιεί ένα mock API key και κείμενο για ανάλυση.
         // Στην πραγματικότητα, θα πρέπει να χρησιμοποιήσετε ένα πραγματικό API key και κείμενο.
         
-        String mockApiKey = "mock-api-key";
         String mockText = "This is a test text.";
 
         InappropriateContent inappropriateContent = new InappropriateContent(mockText);

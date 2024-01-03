@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-public class AppTest{
+public class ResponseCheckTest{
     ResponseCheck obj = new ResponseCheck();
     @Test
     public void SpellingAndGrammarCheck() {
