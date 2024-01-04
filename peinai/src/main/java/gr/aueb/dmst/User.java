@@ -190,10 +190,6 @@ public class User {
         if (!"female".equals(gender) && !"male".equals(gender) && !"other".equals(gender)) {
             throw new IllegalArgumentException("Invalid input");
         }
-        // check for not null gender
-        if (gender == null) {
-            throw new IllegalArgumentException("Gender cannot be null");
-        }
     }
 
     private void validateBirthDate(LocalDate birthDate) {
