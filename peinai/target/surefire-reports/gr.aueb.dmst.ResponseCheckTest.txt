@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: gr.aueb.dmst.ResponseCheckTest
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.390 s -- in gr.aueb.dmst.ResponseCheckTest
+=======
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.277 s -- in gr.aueb.dmst.ResponseCheckTest
+>>>>>>> 12ca5f2c098421566e48c74b1bc86aede9ac9a6a

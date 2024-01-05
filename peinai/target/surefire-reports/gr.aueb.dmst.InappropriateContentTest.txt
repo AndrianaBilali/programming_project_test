@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: gr.aueb.dmst.InappropriateContentTest
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.088 s -- in gr.aueb.dmst.InappropriateContentTest
+=======
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.176 s -- in gr.aueb.dmst.InappropriateContentTest
+>>>>>>> 12ca5f2c098421566e48c74b1bc86aede9ac9a6a
