@@ -1,3 +1,5 @@
+gr\aueb\dmst\OpenAICommunicationTest.class
 gr\aueb\dmst\InappropriateContentTest.class
 gr\aueb\dmst\UserQueryTest.class
+gr\aueb\dmst\DataFileTest.class
 gr\aueb\dmst\ResponseCheckTest.class

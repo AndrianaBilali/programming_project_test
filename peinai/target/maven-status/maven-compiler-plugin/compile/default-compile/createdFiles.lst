@@ -1,4 +1,7 @@
 gr\aueb\dmst\UserQuery.class
+gr\aueb\dmst\OpenAICommunication.class
+gr\aueb\dmst\DataFile.class
+gr\aueb\dmst\Main.class
 gr\aueb\dmst\Recipe.class
 gr\aueb\dmst\InappropriateContent.class
 gr\aueb\dmst\ResponseCheck.class

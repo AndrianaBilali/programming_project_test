@@ -3,6 +3,7 @@ package gr.aueb.dmst;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.prefs.Preferences;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,7 +28,7 @@ public class Main {
             // sign up part
             // user information
             // username
-            System.out.print("Enter username: ");
+/* System.out.print("Enter username: ");
             String username = sc.nextLine();
             // password
             System.out.print("\nEnter password: ");
@@ -97,7 +98,7 @@ public class Main {
             // if we have the same user then no need to ask for credentials
             // we want to keep the username throughout the loop and check it here at the
             // start
-
+*/ 
             System.out.println("Please enter the ingredients that you want your meal to contain ");
             // Initialization of the ArrayList that contains the ingredients
             ArrayList<String> ingredients = new ArrayList<String>();
@@ -130,7 +131,13 @@ public class Main {
             // Object with the question as a parameter
             UserQuery m = new UserQuery(userQuestion);
             // Calling the method that processes everything on the object
-            String modifiedUserQuestion = m.modify();
+            String modifiedUserQuestion = "hey chat. say 'no recipe'";
+            try {
+                modifiedUserQuestion = m.modify();
+            } catch (IOException e) {
+                System.out.println("exception in modify() + " + e.getMessage());
+            }
+            
 
             openAI.sendRequest(modifiedUserQuestion);
             String apiResponse = openAI.receiveResponse();

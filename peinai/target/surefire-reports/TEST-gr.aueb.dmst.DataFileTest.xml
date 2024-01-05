@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="gr.aueb.dmst.InappropriateContentTest" time="0.989" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="gr.aueb.dmst.DataFileTest" time="0.15" tests="4" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -58,5 +58,8 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="testCheckContent" classname="gr.aueb.dmst.InappropriateContentTest" time="0.989"/>
+  <testcase name="testByteCount" classname="gr.aueb.dmst.DataFileTest" time="0.084"/>
+  <testcase name="testcreateFile" classname="gr.aueb.dmst.DataFileTest" time="0.015"/>
+  <testcase name="testIsPathValid" classname="gr.aueb.dmst.DataFileTest" time="0.004"/>
+  <testcase name="testDataWriterAndFileReader" classname="gr.aueb.dmst.DataFileTest" time="0.03"/>
 </testsuite>
