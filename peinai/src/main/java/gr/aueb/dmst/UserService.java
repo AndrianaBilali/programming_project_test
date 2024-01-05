@@ -29,6 +29,7 @@ public class UserService {
 
             try {
                 logger.info("Attempting to sign up user: {}", username);
+                System.out.println("Attempting to sign up user: " + username);
 
                 // Check if the user with the given username or email already exists
                 if (userExists(username) || userExistsByEmail(email)) {
@@ -98,7 +99,8 @@ public class UserService {
 
     private static boolean userExistsByEmail(String email) {
         try (EntityManager em = factory.createEntityManager()) {
-            TypedQuery<Long> query = em.createQuery("SELECT COUNT(u) FROM User u WHERE u.email = :email", Long.class);
+            final TypedQuery<Long> query = em.createQuery("SELECT COUNT(u) FROM User u WHERE u.email = :email",
+                    Long.class);
             query.setParameter("email", email);
             Long count = query.getSingleResult();
             return count > 0;

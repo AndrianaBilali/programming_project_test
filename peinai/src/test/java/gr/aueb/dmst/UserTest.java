@@ -12,7 +12,7 @@ class UserTest {
     @Test
     void testCalculateAge() {
         // Create a user object for the User class with a known birth date
-        User user = new User("George02", "p34wqR71a", "george@example.com", "male", LocalDate.of(1990, 2, 1),
+        User user = new User("George02", "p34wqR71a!", "george@example.com", "male", LocalDate.of(1990, 2, 1),
                 new Preferences());
         user.setBirthDate(LocalDate.of(1990, 2, 1));
 
@@ -27,7 +27,7 @@ class UserTest {
     @Test
     void testCalculateAgeWithFutureBirthDate() {
         // Create a user object for the User class with a future birth date
-        User user = new User("George02", "p34wqR71a", "george@example.com", "male", LocalDate.of(1990, 2, 1),
+        User user = new User("George02", "p34wqR71a!", "george@example.com", "male", LocalDate.of(1990, 2, 1),
                 new Preferences());
         user.setBirthDate(LocalDate.now().plusYears(1));
 
@@ -39,7 +39,7 @@ class UserTest {
     @Test
     void testVerifyPassword() {
         // Create a user object for the User class with a known password
-        User user = new User("George02", "p34wqR71a", "george@example.com", "male", LocalDate.of(1990, 2, 1),
+        User user = new User("George02", "p34wqR71a!", "george@example.com", "male", LocalDate.of(1990, 2, 1),
                 new Preferences());
         user.setPassword("secret");
 
@@ -51,18 +51,18 @@ class UserTest {
     @Test
     void testHashPassword() {
         // Create a user object for the User class with a known birth date
-        User user = new User("George02", "p34wqR71a", "george@example.com", "male", LocalDate.of(1990, 2, 1),
+        User user = new User("George02", "p34wqR71a!", "george@example.com", "male", LocalDate.of(1990, 2, 1),
                 new Preferences());
 
         // Verify that the hashPassword method returns a non-null hashed password
-        assertNotNull(user.hashPassword("password123"));
+        assertNotNull(user.hashPassword("p34wqR71a!"));
     }
 
     // Test for establishing an association between User and Preferences
     @Test
     void testPreferencesAssociation() {
         // Create a new User instance
-        User user = new User("George02", "p34wqR71a", "george@example.com", "male", LocalDate.of(1990, 2, 1),
+        User user = new User("George02", "p34wqR71a!", "george@example.com", "male", LocalDate.of(1990, 2, 1),
                 new Preferences());
 
         // Create a new Preferences instance

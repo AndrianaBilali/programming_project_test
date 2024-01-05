@@ -27,8 +27,8 @@ will be persisted to the database.*/
 @Entity
 public class User {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // is used for databases that support auto-incrementing primary
-                                                        // keys
+    // is used for databases that support auto-incrementing primary keys
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     /*
      * These annotations define the mapping of the fields username,
@@ -180,10 +180,6 @@ public class User {
         // check for valid input for gender
         if (!"female".equals(gender) && !"male".equals(gender) && !"other".equals(gender)) {
             throw new IllegalArgumentException("Invalid input");
-        }
-        // check for not null gender
-        if (gender == null) {
-            throw new IllegalArgumentException("Gender cannot be null");
         }
     }
 
