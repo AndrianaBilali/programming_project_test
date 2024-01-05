@@ -1,0 +1,28 @@
+-------------------------------------------------------------------------------
+Test set: gr.aueb.dmst.UserServiceTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 4, Skipped: 0, Time elapsed: 0.339 s <<< FAILURE! - in gr.aueb.dmst.UserServiceTest
+testSignInWithInvalidCredentials  Time elapsed: 0.204 s  <<< ERROR!
+java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityException: Could not resolve root entity 'User'
+	at gr.aueb.dmst.UserServiceTest.testSignInWithInvalidCredentials(UserServiceTest.java:71)
+Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve root entity 'User'
+	at gr.aueb.dmst.UserServiceTest.testSignInWithInvalidCredentials(UserServiceTest.java:71)
+
+testSignUpAndSignIn  Time elapsed: 0.017 s  <<< ERROR!
+java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityException: Could not resolve root entity 'User'
+	at gr.aueb.dmst.UserServiceTest.testSignUpAndSignIn(UserServiceTest.java:37)
+Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve root entity 'User'
+	at gr.aueb.dmst.UserServiceTest.testSignUpAndSignIn(UserServiceTest.java:37)
+
+testDuplicateSignUp  Time elapsed: 0.015 s  <<< ERROR!
+java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityException: Could not resolve root entity 'User'
+	at gr.aueb.dmst.UserServiceTest.testDuplicateSignUp(UserServiceTest.java:50)
+Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve root entity 'User'
+	at gr.aueb.dmst.UserServiceTest.testDuplicateSignUp(UserServiceTest.java:50)
+
+testInvalidSignUp  Time elapsed: 0 s  <<< ERROR!
+java.lang.IllegalArgumentException: org.hibernate.query.sqm.UnknownEntityException: Could not resolve root entity 'User'
+	at gr.aueb.dmst.UserServiceTest.testInvalidSignUp(UserServiceTest.java:63)
+Caused by: org.hibernate.query.sqm.UnknownEntityException: Could not resolve root entity 'User'
+	at gr.aueb.dmst.UserServiceTest.testInvalidSignUp(UserServiceTest.java:63)
+

@@ -6,9 +6,10 @@
 
     <persistence-unit name="peinai" transaction-type="RESOURCE_LOCAL">
         <!-- Specify the classes to be managed by this persistence unit -->
-        <class>gr.aueb.dmst.User</class>
+        <class>"gr.aueb.dmst.User"</class>
         <class>gr.aueb.dmst.Preferences</class>
         <class>gr.aueb.dmst.Ingredient</class>
+
 
         <!-- Specify the database connection details -->
         <properties>

@@ -50,8 +50,6 @@ class IngredientTest {
         assertEquals("Chocolate", retrievedIngredient.getName());
     }
 
-    // Additional test methods can be added as needed
-
     private void cleanDatabase() {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();

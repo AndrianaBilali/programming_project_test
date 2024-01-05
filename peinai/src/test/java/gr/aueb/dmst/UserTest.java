@@ -16,8 +16,11 @@ class UserTest {
                 new Preferences());
         user.setBirthDate(LocalDate.of(1990, 2, 1));
 
+        // Get the calculated age
+        int calculatedAge = user.calculateAge();
+
         // Verify that the calculateAge method returns the expected age
-        assertEquals(33, user.calculateAge());
+        assertTrue(calculatedAge == 33, "Calculate age should return the correct age. Actual age: " + calculatedAge);
     }
 
     // Test for calculating age when the birth date is in the future

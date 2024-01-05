@@ -16,7 +16,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 
 //used for the calculation of the user's age
 import java.time.LocalDate;
@@ -26,7 +25,6 @@ import java.time.format.DateTimeParseException; // Import for handling date pars
 /*instances of the class should be treated as JPA entities, and their state
 will be persisted to the database.*/
 @Entity
-@Table(name = "users")
 public class User {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY) // is used for databases that support auto-incrementing primary
