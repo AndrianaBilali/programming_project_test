@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 
 @Entity
@@ -20,10 +22,12 @@ public class Preferences {
     private String allergy;
 
     @ManyToMany
-    private Set<String> favIngredients;
+    @JoinTable(name = "preferences_fav_ingredients", joinColumns = @JoinColumn(name = "preference_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private Set<Ingredient> favIngredients;
 
     @ManyToMany
-    private Set<String> worstIngredients;
+    @JoinTable(name = "preferences_worst_ingredients", joinColumns = @JoinColumn(name = "preference_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private Set<Ingredient> worstIngredients;
 
     // Constructors
 
@@ -33,7 +37,7 @@ public class Preferences {
     }
 
     // Parameterized constructor
-    public Preferences(String allergy, Set<String> favIngredients, Set<String> worstIngredients) {
+    public Preferences(String allergy, Set<Ingredient> favIngredients, Set<Ingredient> worstIngredients) {
         this.allergy = allergy;
         this.favIngredients = favIngredients;
         this.worstIngredients = worstIngredients;
@@ -52,19 +56,19 @@ public class Preferences {
         return allergy;
     }
 
-    public Set<String> getFavIngredients() {
+    public Set<Ingredient> getFavIngredients() {
         return favIngredients;
     }
 
-    public void setFavIngredients(Set<String> favIngredients) {
+    public void setFavIngredients(Set<Ingredient> favIngredients) {
         this.favIngredients = favIngredients;
     }
 
-    public Set<String> getWorstIngredients() {
+    public Set<Ingredient> getWorstIngredients() {
         return worstIngredients;
     }
 
-    public void setWorstIngredients(Set<String> worstIngredients) {
+    public void setWorstIngredients(Set<Ingredient> worstIngredients) {
         this.worstIngredients = worstIngredients;
     }
 }

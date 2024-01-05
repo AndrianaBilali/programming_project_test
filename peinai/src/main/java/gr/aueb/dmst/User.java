@@ -16,6 +16,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 //used for the calculation of the user's age
 import java.time.LocalDate;
@@ -25,17 +26,17 @@ import java.time.format.DateTimeParseException; // Import for handling date pars
 /*instances of the class should be treated as JPA entities, and their state
 will be persisted to the database.*/
 @Entity
+@Table(name = "users")
 public class User {
 
-    @Id // specifies that the userId field is the primary key for the entity
     @GeneratedValue(strategy = GenerationType.IDENTITY) // is used for databases that support auto-incrementing primary
                                                         // keys
-    private Long userId;
 
     /*
      * These annotations define the mapping of the fields username,
      * password,gender and email to database columns
      */
+    @Id // username as primary key
     @Column(nullable = false, unique = true)
     private String username;
 
@@ -58,14 +59,6 @@ public class User {
     private Preferences preferences;
 
     // getters and setters
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
