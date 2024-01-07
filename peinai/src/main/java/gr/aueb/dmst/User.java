@@ -5,8 +5,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 // Apache Commons Codec for password hashing
@@ -27,18 +25,15 @@ will be persisted to the database.*/
 @Entity
 public class User {
 
-    @Id // specifies that the userId field is the primary key for the entity
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // is used for databases that support auto-incrementing primary
-                                                        // keys
-    private Long userId;
-
-    /*
-     * These annotations define the mapping of the fields username,
-     * password,gender and email to database columns
-     */
+    // specifies that the username field is the primary key for the entity
+    @Id
     @Column(nullable = false, unique = true)
     private String username;
 
+    /*
+     * These annotations define the mapping of the fields,
+     * password,gender and email to database columns
+     */
     @Column(nullable = false)
     private String password;
 
@@ -58,14 +53,6 @@ public class User {
     private Preferences preferences;
 
     // getters and setters
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }

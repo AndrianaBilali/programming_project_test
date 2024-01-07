@@ -39,9 +39,9 @@ class UserTest {
     @Test
     void testVerifyPassword() {
         // Create a user object for the User class with a known password
-        User user = new User("George02", "p34wqR71a!", "george@example.com", "male", LocalDate.of(1990, 2, 1),
+        User user = new User("George02", "secret83264", "george@example.com", "male", LocalDate.of(1990, 2, 1),
                 new Preferences());
-        user.setPassword("secret");
+        user.setPassword("secret83264");
 
         // Verify that the verifyPassword method correctly checks passwords
         assertFalse(user.verifyPassword("wrongpassword"));
@@ -50,7 +50,6 @@ class UserTest {
     // Test for hashing a user password
     @Test
     void testHashPassword() {
-        // Create a user object for the User class with a known birth date
         User user = new User("George02", "p34wqR71a!", "george@example.com", "male", LocalDate.of(1990, 2, 1),
                 new Preferences());
 
@@ -78,10 +77,10 @@ class UserTest {
     // Test for creating a valid user with proper data
     @Test
     void testCreateValidUser() {
-        LocalDate validBirthDate = LocalDate.of(1990, 1, 1);
+        LocalDate validBirthDate = LocalDate.of(2000, 5, 1);
 
         // Create a user object for the User class with valid data
-        User user = new User("validUsername", "validPassword123", "validEmail", "male", validBirthDate,
+        User user = new User("validUsername", "validPassword123", "validEmail", "female", validBirthDate,
                 new Preferences());
 
         // Verify that the created user has the expected properties
@@ -93,17 +92,21 @@ class UserTest {
     // Test for creating a user with invalid data, expecting an exception
     @Test
     void testCreateUserWithInvalidData() {
-        // Verify that creating a user with an empty username triggers an
-        // IllegalArgumentException
+        /*
+         * Verify that creating a user with an empty username triggers an
+         * IllegalArgumentException
+         */
         assertThrows(IllegalArgumentException.class, () -> new User("", "validPassword123", "validEmail", "male",
-                LocalDate.of(1990, 1, 1), new Preferences()));
+                LocalDate.of(2007, 7, 12), new Preferences()));
     }
 
     // Test for creating a user with invalid gender, expecting an exception
     @Test
     void testCreateUserWithInvalidGender() {
-        // Verify that creating a user with an invalid gender triggers an
-        // IllegalArgumentException
+        /*
+         * Verify that creating a user with an invalid gender triggers an
+         * IllegalArgumentException
+         */
         assertThrows(IllegalArgumentException.class,
                 () -> new User("invalidUser", "validPassword123", "validEmail", "invalidGender",
                         LocalDate.of(1990, 1, 1),
