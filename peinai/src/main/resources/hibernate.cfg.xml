@@ -29,6 +29,5 @@
         <!-- Mention annotated classes -->
         <mapping class="gr.aueb.dmst.User"/>
         <mapping class="gr.aueb.dmst.Preferences"/>
-        <mapping class="gr.aueb.dmst.Ingredient"/>
     </session-factory>
 </hibernate-configuration>
