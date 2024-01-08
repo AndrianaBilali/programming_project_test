@@ -23,148 +23,155 @@ public class Main {
         OpenAICommunication openAI = new OpenAICommunication();
         openAI.openConnection();
         // The app starts if the user enters
-        while (choise == 0) {
-
+        while (choise == 1) {
+            System.out.println("New user! Please enter the following information: ");
             // sign up part
             // user information
             // username
-            /*
-             * System.out.print("Enter username: ");
-             * String username = sc.nextLine();
-             * // password
-             * System.out.print("\nEnter password: ");
-             * String password = sc.nextLine();
-             * // email
-             * System.out.print("\nEnter email: ");
-             * String email = sc.nextLine();
-             * // gender
-             * System.out.print("\nEnter gender (female/male/other): ");
-             * String gender = sc.nextLine();
-             * // birth date
-             * System.out.print("\nEnter birth date (YYYY-MM-DD): ");
-             * String birthDateString = sc.nextLine();
-             * LocalDate birthDate = LocalDate.parse(birthDateString);
-             * 
-             * System.out.print("\nEnter allergy: ");
-             * System.out.print("If you have no allergies press 'n'");
-             * String allergy = sc.nextLine();
-             * 
-             * // preferences information
-             * // favorite ingredients of the user
-             * Set<String> favIngredients = new HashSet<>();
-             * System.out.println("Enter favorite ingredients (type 'exit' to stop):");
-             * while (true) {
-             * System.out.print("Enter an ingredient: ");
-             * // read the ingredient and trim amy accidental whitespaces
-             * String input = sc.nextLine().trim();
-             * if (input.equalsIgnoreCase("exit")) {
-             * break;
-             * }
-             * favIngredients.add(input);
-             * }
-             * // verification of the favorite ingredients
-             * System.out.println("Your favorite ingredients: " + favIngredients);
-             * 
-             * // ingredients the user does not like
-             * Set<String> worstIngredients = new HashSet<>();
-             * System.out.println("Enter ingredients you don't like (type 'exit' to stop):"
-             * );
-             * while (true) {
-             * System.out.print("Enter an ingredient: ");
-             * // read the ingredient and trim amy accidental whitespaces again
-             * String input2 = sc.nextLine().trim();
-             * if (input2.equalsIgnoreCase("exit")) {
-             * break;
-             * }
-             * worstIngredients.add(input2);
-             * }
-             * System.out.println("Ingredients you don't like: " + favIngredients);
-             * 
-             * // Create Preferences object
-             * Preferences preferences = new Preferences(allergy, favIngredients,
-             * worstIngredients);
-             * // Create User object (create new user)
-             * User user = new User(username, password, email, gender, birthDate,
-             * preferences);
-             * 
-             * // display the user profile
-             * System.out.println("User Profile: ");
-             * System.out.println("Username: " + user.getUsername());
-             * System.out.println("Email: " + user.getEmail());
-             * System.out.println("Gender: " + user.getGender());
-             * System.out.println("Age: " + user.calculateAge());
-             * System.out.println("Preferences: ");
-             * System.out.println("Allergy: " + preferences.getAllergy());
-             * System.out.println("Favorite Ingredients: " +
-             * preferences.getFavIngredients());
-             * System.out.println("Worst Ingredients: " +
-             * preferences.getWorstIngredients());
-             * 
-             * // user profile here
-             * // if we have the same user then no need to ask for credentials
-             * // we want to keep the username throughout the loop and check it here at the
-             * // start
-             */
-            System.out.println("Please enter the ingredients that you want your meal to contain ");
-            // Initialization of the ArrayList that contains the ingredients
-            ArrayList<String> ingredients = new ArrayList<String>();
+            System.out.print("Enter username: ");
+            String username = sc.nextLine();
+            // password
+            System.out.print("\nEnter password: ");
+            String password = sc.nextLine();
+            // email
+            System.out.print("\nEnter email: ");
+            String email = sc.nextLine();
+            // gender
+            System.out.print("\nEnter gender (female/male/other): ");
+            String gender = sc.nextLine();
+            // birth date
+            System.out.print("\nEnter birth date (YYYY-MM-DD): ");
+            String birthDateString = sc.nextLine();
+            LocalDate birthDate = LocalDate.parse(birthDateString);
 
-            // Loop for the input of the ingredients
-            int c = 1;
+            System.out.print("\nEnter allergy: ");
+            System.out.print("If you have no allergies input 'no allergies'");
+            String allergy = sc.nextLine();
+
+            // preferences information
+            // favorite ingredients of the user
+            Set<String> favIngredients = new HashSet<>();
+            System.out.println("Enter favorite ingredients (type 'exit' to stop):");
             while (true) {
-                System.out.println("Please enter ingredient number " + c);
-                String ingredient = sc.nextLine();
-                ingredients.add(ingredient);
-                System.out.println("If you have other ingredients for input press 1, else press 0.");
-                int choise2 = sc.nextInt();
-
-                if (choise2 == 0) {
+                System.out.print("Enter an ingredient: ");
+                // read the ingredient and trim any accidental whitespaces
+                String input = sc.nextLine().trim();
+                if (input.equalsIgnoreCase("exit")) {
                     break;
                 }
+                favIngredients.add(input);
             }
+            // verification of the favorite ingredients
+            System.out.println("Your favorite ingredients: " + favIngredients);
 
-            // Verification of the ingredients
-            System.out.println("The ingredients you have are: ");
-            for (String value : ingredients) {
-                System.out.println(value);
+            // ingredients the user does not like
+            Set<String> worstIngredients = new HashSet<>();
+            System.out.println("Enter ingredients you don't like (type 'exit' to stop):");
+            while (true) {
+                System.out.print("Enter an ingredient: ");
+                // read the ingredient and trim amy accidental whitespaces again
+                String input2 = sc.nextLine().trim();
+                if (input2.equalsIgnoreCase("exit")) {
+                    break;
+                }
+                worstIngredients.add(input2);
             }
+            System.out.println("Ingredients you don't like: " + favIngredients);
 
-            // Appending the user question to send it to the api.
-            String userQuestion = "Can you give me a recipe with the following ingredients: "
-                    + ingredients.toString();
+            // Create Preferences object
+            Preferences preferences = new Preferences(allergy, favIngredients,
+                    worstIngredients);
+            // Create User object (create new user)
+            User user = new User(username, password, email, gender, birthDate,
+                    preferences);
 
-            // Pre process of the user's question
-            // Object with the question as a parameter
-            UserQuery m = new UserQuery(userQuestion);
-            // Calling the method that processes everything on the object
-            String modifiedUserQuestion = "hey chat. say 'no recipe'";
-            try {
-                modifiedUserQuestion = m.modify();
-            } catch (IOException e) {
-                System.out.println("exception in modify() + " + e.getMessage());
+            // display the user profile
+            System.out.println("User Profile: ");
+            System.out.println("Username: " + user.getUsername());
+            System.out.println("Email: " + user.getEmail());
+            System.out.println("Gender: " + user.getGender());
+            System.out.println("Age: " + user.calculateAge());
+            System.out.println("Preferences: ");
+            System.out.println("Allergy: " + preferences.getAllergy());
+            System.out.println("Favorite Ingredients: " +
+                    preferences.getFavIngredients());
+            System.out.println("Worst Ingredients: " +
+                    preferences.getWorstIngredients());
+
+            // loop for the recipe
+            int a = 1;
+            while (true) {
+                System.out.println("Recipe number: " + a);
+                System.out.println("Please enter the ingredients that you want your meal to contain ");
+                // Initialization of the ArrayList that contains the ingredients
+                ArrayList<String> ingredients = new ArrayList<String>();
+
+                // Loop for the input of the ingredients
+                int c = 1;
+                while (true) {
+                    System.out.println("Please enter ingredient number " + c);
+                    String ingredient = sc.nextLine();
+                    ingredients.add(ingredient);
+                    System.out.println("If you have other ingredients for input press 1, else press 0.");
+                    int choise2 = sc.nextInt();
+                    if (choise2 == 0) {
+                        break;
+                    }
+                }
+
+                // Verification of the ingredients
+                System.out.println("The ingredients you have are: ");
+                for (String value : ingredients) {
+                    System.out.println(value);
+                }
+
+                // Appending the user question to send it to the api.
+                String userQuestion = "Can you give me a recipe with the following ingredients: "
+                        + ingredients.toString() + " favorite ingredients include: " + preferences.getFavIngredients()
+                        + " worst ingredients include: " + preferences.getWorstIngredients() + " allergies: "
+                        + preferences.getAllergy();
+
+                // Pre process of the user's question
+                // Object with the question as a parameter
+                UserQuery m = new UserQuery(userQuestion);
+                // Calling the method that processes everything on the object
+                String modifiedUserQuestion = "hey chat.";
+                try {
+                    modifiedUserQuestion = m.modify();
+                } catch (IOException e) {
+                    System.out.println("exception in modify() + " + e.getMessage());
+                }
+
+                openAI.sendRequest(modifiedUserQuestion);
+                String apiResponse = openAI.receiveResponse();
+                // Post-processing
+                ResponseCheck resp = new ResponseCheck();
+                String allergy = "no allergies";
+                Recipe result = resp.PostProcessingfirst(apiResponse, ingredients, allergy);
+                System.out.println(result.getSteps());
+                System.out.println(result.getDescription());
+                System.out.println(apiResponse);
+
+                // The recipe will be saved in a file
+                DataFile datafile = new DataFile(modifiedUserQuestion, apiResponse); // remember to use the modified api
+                                                                                     // response
+                System.out.println("Your recipe will now be saved in a file...");
+                // Creating the file if it doesn't exist
+                DataFile.createFile();
+                // Saving the ingredients and recipe in the file
+                datafile.dataWriter();
+                // Counting the bytes of the file
+                long byteCount = datafile.byteCount();
+                System.out.println("The recipe has successfully been saved to the file!");
+
+                System.out.println("Would you like to enter ingredients for another recipe?");
+                System.out.println("If yes, please enter 1, else enter 0");
+                int ans = sc.nextInt();
+                if (ans == 0) {
+                    break;
+                }
+                a++;
             }
-
-            openAI.sendRequest(modifiedUserQuestion);
-            String apiResponse = openAI.receiveResponse();
-            // Post-processing
-            ResponseCheck resp = new ResponseCheck();
-            String allergy = "no allergies";
-            Recipe result = resp.PostProcessingfirst(apiResponse, ingredients, allergy);
-            System.out.println(result.getSteps());
-            System.out.println(result.getDescription());
-            System.out.println(apiResponse);
-
-            // The recipe will be saved in a file
-            DataFile datafile = new DataFile(modifiedUserQuestion, apiResponse); // remember to use the modified api
-                                                                                 // response
-            System.out.println("Your recipe will now be saved in a file...");
-            // Creating the file if it doesn't exist
-            DataFile.createFile();
-            // Saving the ingredients and recipe in the file
-            datafile.dataWriter();
-            // Counting the bytes of the file
-            long byteCount = datafile.byteCount();
-            System.out.println("The recipe has successfully been saved to the file!");
 
             // Asking again if the user wants to quit the app
             System.out.println(
