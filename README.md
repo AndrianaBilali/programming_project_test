@@ -27,6 +27,7 @@ java -jar peinai.jar
 - Integration-of-ai-model : κλάσεις Main, OpenAICommunication
 - Pre-and-Post-Processing : κλάσεις UserQuery, ResponseCheck, InappropriateContent
 - main : περιέχει ολες τις κλάσεις μετά το merge των branches
+  **_Κάθε branch περιέχει τα αντίστοιχα JUnit test των κλάσεων του._**
 
 #######
 **5) Διάγραμμα UML**
