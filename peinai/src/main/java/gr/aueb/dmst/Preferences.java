@@ -11,8 +11,9 @@ import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Preferences {
-
+    // specifies that the preferenceId field is the primary key for the entity
     @Id
+    // is used for databases that support auto-incrementing primary keys
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long preferenceId;
 
