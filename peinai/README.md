@@ -46,6 +46,8 @@ java -jar peinai.jar
 **Κάθε branch περιέχει τα αντίστοιχα JUnit tests των κλάσεών του.**
 
 **5) Διάγραμμα UML**
+![αρχείο λήψης](https://github.com/AndrianaBilali/programming_project_test/assets/147388357/170ccd29-93b4-4d29-880f-0aee73fd64f3)
+
 
 **6) Δομές Δεδομένων και Αλγόριθμοι που Χρησιμοποιούνται:**
 Γίνεται χρήση των δομών δεδομένων List, Map, Set.
