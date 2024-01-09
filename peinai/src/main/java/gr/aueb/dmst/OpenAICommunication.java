@@ -23,16 +23,6 @@ public class OpenAICommunication {
 
     // method to open the connection
     public void openConnection() {
-        /*
-         * URI endpoint;
-         * try {
-         * endpoint = new URI("https", "api.openai.com", "/v1/chat/completions", null,
-         * null);
-         * } catch (URISyntaxException e) {
-         * e.printStackTrace();
-         * }
-         */
-
         URL url = null;
         try {
             // url connection to the endpoint
@@ -121,14 +111,5 @@ public class OpenAICommunication {
         if (connection != null) {
             connection.disconnect();
         }
-    }
-
-    public static String processQuestion(String userQuestion) {
-        OpenAICommunication openAI = new OpenAICommunication();
-        openAI.openConnection();
-        openAI.sendRequest(userQuestion);
-        String response = openAI.receiveResponse();
-        openAI.closeConnection();
-        return response;
     }
 }
