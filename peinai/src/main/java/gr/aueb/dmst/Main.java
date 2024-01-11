@@ -31,7 +31,7 @@ public class Main {
             System.out.print("Enter username: ");
             String username = sc.nextLine();
             // password
-            System.out.print("\nEnter password: ");
+            System.out.print("\nEnter password (Password must be at least 8 characters long): ");
             String password = sc.nextLine();
             // email
             System.out.print("\nEnter email: ");
@@ -45,13 +45,13 @@ public class Main {
             LocalDate birthDate = LocalDate.parse(birthDateString);
 
             System.out.print("\nEnter allergy: ");
-            System.out.print("If you have no allergies input 'no allergies'");
+            System.out.print("If you have no allergies input 'no allergies'\n");
             String allergy = sc.nextLine();
 
             // preferences information
             // favorite ingredients of the user
             Set<String> favIngredients = new HashSet<>();
-            System.out.println("Enter favorite ingredients (type 'exit' to stop):");
+            System.out.println("Enter favorite ingredients (type 'exit' to stop): \n");
             while (true) {
                 System.out.print("Enter an ingredient: ");
                 // read the ingredient and trim any accidental whitespaces
@@ -60,13 +60,14 @@ public class Main {
                     break;
                 }
                 favIngredients.add(input);
+                System.out.println("Enter favorite ingredients (type 'exit' to stop):");
             }
             // verification of the favorite ingredients
             System.out.println("Your favorite ingredients: " + favIngredients);
 
             // ingredients the user does not like
             Set<String> worstIngredients = new HashSet<>();
-            System.out.println("Enter ingredients you don't like (type 'exit' to stop):");
+            System.out.println("Enter ingredients you don't like (type 'exit' to stop): \n");
             while (true) {
                 System.out.print("Enter an ingredient: ");
                 // read the ingredient and trim amy accidental whitespaces again
@@ -75,8 +76,9 @@ public class Main {
                     break;
                 }
                 worstIngredients.add(input2);
+                System.out.println("Enter ingredients you don't like (type 'exit' to stop): \n");
             }
-            System.out.println("Ingredients you don't like: " + favIngredients);
+            System.out.println("Ingredients you don't like: " + worstIngredients);
 
             // Create Preferences object
             Preferences preferences = new Preferences(allergy, favIngredients,
@@ -114,6 +116,7 @@ public class Main {
                     ingredients.add(ingredient);
                     System.out.println("If you have other ingredients for input press 1, else press 0.");
                     int choise2 = in.nextInt();
+                    c++;
                     if (choise2 == 0) {
                         break;
                     }
