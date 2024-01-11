@@ -2,7 +2,6 @@ package gr.aueb.dmst;
 
 import java.util.Scanner;
 import java.util.Set;
-import java.util.prefs.Preferences;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,11 +11,12 @@ public class Main {
     public static void main(String[] args) {
         // Initializing the scanner
         Scanner sc = new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
 
         System.out.println("Welcome to Peinai!");
         System.out.println(
                 "If you wish to quit please enter 0. If you wish to continue, please enter 1");
-        int choise = sc.nextInt();
+        int choise = in.nextInt();
         // Creating OpenAiCommunication object
         // The connection opens here because we don't want it to open and close evrry
         // time in the loop
@@ -113,7 +113,7 @@ public class Main {
                     String ingredient = sc.nextLine();
                     ingredients.add(ingredient);
                     System.out.println("If you have other ingredients for input press 1, else press 0.");
-                    int choise2 = sc.nextInt();
+                    int choise2 = in.nextInt();
                     if (choise2 == 0) {
                         break;
                     }
@@ -135,7 +135,7 @@ public class Main {
                 // Object with the question as a parameter
                 UserQuery m = new UserQuery(userQuestion);
                 // Calling the method that processes everything on the object
-                String modifiedUserQuestion = "hey chat.";
+                String modifiedUserQuestion = null;
                 try {
                     modifiedUserQuestion = m.modify();
                 } catch (IOException e) {
@@ -146,8 +146,7 @@ public class Main {
                 String apiResponse = openAI.receiveResponse();
                 // Post-processing
                 ResponseCheck resp = new ResponseCheck();
-                String allergy = "no allergies";
-                Recipe result = resp.PostProcessingfirst(apiResponse, ingredients, allergy);
+                Recipe result = resp.PostProcessingfirst(apiResponse, ingredients, preferences.getAllergy());
                 System.out.println(result.getSteps());
                 System.out.println(result.getDescription());
                 System.out.println(apiResponse);
@@ -166,7 +165,7 @@ public class Main {
 
                 System.out.println("Would you like to enter ingredients for another recipe?");
                 System.out.println("If yes, please enter 1, else enter 0");
-                int ans = sc.nextInt();
+                int ans = in.nextInt();
                 if (ans == 0) {
                     break;
                 }
@@ -176,10 +175,11 @@ public class Main {
             // Asking again if the user wants to quit the app
             System.out.println(
                     "If you wish to quit please enter 0. If you wish to continue, please enter 1");
-            choise = sc.nextInt();
+            choise = in.nextInt();
         }
         // Closing the connection and Scanner when the user quits the app
         openAI.closeConnection();
         sc.close();
+        in.close();
     }
 }
