@@ -81,19 +81,17 @@ public class ResponseCheck {
     }
 
     // επεξήγηση των περίπλοκων όρων
-    public String simplifyTerms(String text) {
+    public void simplifyTerms(String text) {
         // χωρίζω το κείμενο σε λέξεισ
         text = text.toLowerCase();
         String[] words = text.split("\\s+");
-        StringBuilder result = new StringBuilder();
         // τσεκάρω τισ λέξεισ για δύσκολουσ μαγειρικούς όρους
         for (String word : words) {
             if (termReplacements.containsKey(word)) {
-                String definition = termReplacements.get(word);
-                result.append("Term: ").append(word).append("\nDefinition: ").append(definition).append("\n\n");
+                System.out.println (termReplacements.get(word));
             }
         }
-        return result.toString();
+        
     }
 
     public static boolean validateRecipe(Recipe recipe) {
@@ -149,14 +147,18 @@ public class ResponseCheck {
     }
 
     public static String AllergyCheck(String aiText, String allergy) throws Allergyexception {
-        boolean found = isWordInText(aiText, allergy);
-        if (found) {
+        if (!allergy.equals("no")){
+            boolean found = isWordInText(aiText, allergy);
+            if (found) {
             throw new Allergyexception("Allergy found in the recipe");
-        }
-        if (found) {
+            }
+            if (found) {
             return "Allergy" + allergy + "found in the recipe, give me a new one";
+            } else {
+                return "no allergy found in the recipe";
+            }
         } else {
-            return null;
+            return "The user has no allergies";
         }
     }
 
@@ -221,8 +223,7 @@ public class ResponseCheck {
             String Allergies = AllergyCheck(recipe, Allergy);
             PreferencesCheck(recipe, ingredients);
             System.out.println(Allergies);
-            String unknownterms = simplifyTerms(recipe);
-            System.out.println(unknownterms);
+            simplifyTerms(recipe);
             Recipe structuredrecipe = parseRecipe(recipe);
             boolean valid = validateRecipe(structuredrecipe);
             System.out.println("The recipe is " + valid);
