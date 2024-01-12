@@ -150,9 +150,11 @@ public class Main {
                 // Post-processing
                 ResponseCheck resp = new ResponseCheck();
                 Recipe result = resp.PostProcessingfirst(apiResponse, ingredients, preferences.getAllergy());
-                System.out.println(result.getSteps());
+                System.out.println(result.getName());
+                for (String step : result.getSteps()) {
+                    System.out.println(step);
+                }
                 System.out.println(result.getDescription());
-                System.out.println(apiResponse);
 
                 // The recipe will be saved in a file
                 DataFile datafile = new DataFile(modifiedUserQuestion, apiResponse); // remember to use the modified api

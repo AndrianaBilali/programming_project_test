@@ -193,7 +193,7 @@ public class ResponseCheck {
         // Split recipe into name, ingredients, and steps
         String[] parts = recipeString.split(": ", 2); // Split by the first occurrence of ": "
         recipe.setName(parts[0]); // First part is the name
-
+        
         String[] stepsAndDescription = parts[1].split("\\. "); // Split the remaining part by ". " to get steps and
                                                                // description
         String[] steps = new String[stepsAndDescription.length - 1];
@@ -201,12 +201,12 @@ public class ResponseCheck {
             steps[i] = stepsAndDescription[i] + ".";
         }
         recipe.setSteps(steps); // Steps are everything before the last sentence
-
+        
         // Last sentence is typically the description, but it might vary
         String description = stepsAndDescription[stepsAndDescription.length - 1];
         // Assuming the description is not a step, add it to the steps list
         recipe.setDescription(description);
-
+        
         // Ingredients extraction might vary based on how they are structured in your
         // recipes
         // Here, I'm using a simple approach of splitting by commas and "and"
