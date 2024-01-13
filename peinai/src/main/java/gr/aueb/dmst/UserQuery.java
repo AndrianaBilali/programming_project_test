@@ -75,7 +75,7 @@ public class UserQuery {
 
     // checks if the query is written in the English language
     public void checkLanguage() {
-        while (query.matches("[a-zA-Z ?]+") != true) {
+        while (query.matches("^[^\\p{Script=Greek}]*$") != true) {
             System.out.println(
                     "The query doesn't contain latin characters. Please reenter your query in the English language");
             String newQuery = input.nextLine(); // the user enters the query again

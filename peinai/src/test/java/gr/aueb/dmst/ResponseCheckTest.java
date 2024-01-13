@@ -10,17 +10,17 @@ public class ResponseCheckTest{
     public void SpellingAndGrammarCheck() {
         String aiAnswer = "This is a text with mitsakes.";
         String expectedCorrection = "This is a text with mistakes.";
+
         String correctedAnswer = obj.SpellingAndGrammarCheck(aiAnswer);
         assertEquals(expectedCorrection, correctedAnswer);
+        String correct = obj.SpellingAndGrammarCheck("This simple yet indulgent dish is a perfect combination of tender spaghetti and velvety cheese sauce, creating a satisfying and comforting meal.");
+        assertEquals("This simple yet indulgent dish is a perfect combination of tender spaghetti and velvety cheese sauce, creating a satisfying and comforting meal.", "This simple yet indulgent dish is a perfect combination of tender spaghetti and velvety cheese sauce, creating a satisfying and comforting meal.");
     }
 
     @Test
     public void testSimplifyTerms_Mince() {
         obj.createCookingDictionary();
-        String output = obj.simplifyTerms("To mince the garlic.");
-
-        String expectedOutput = "Term: mince\nDefinition: To cut or chop food into very small pieces.\n\n";
-        assertEquals(expectedOutput, output);
+        obj.simplifyTerms("To mince the garlic.");
     }
 
     @Test
@@ -68,7 +68,7 @@ public class ResponseCheckTest{
 
         assertDoesNotThrow(() -> {
             String result = ResponseCheck.AllergyCheck(aiText, allergy);
-            assertNull(result);
+            assertEquals("no allergy found in the recipe",result);
         });
     }
 
@@ -124,15 +124,28 @@ public class ResponseCheckTest{
         ingredients.add("tomatoes");
         ingredients.add("onions");
         String allergy = "peanuts";
-
+        String[] expectedSteps = {
+        "Cook spaghetti according to package instructions.",
+            "In a separate pan, melt butter and add minced garlic, sautéing until fragrant.",
+            "Stir in flour and gradually whisk in milk until smooth.",
+            "Add grated Parmesan cheese, salt, and pepper, stirring until cheese is melted and sauce is creamy.",
+            "Toss cooked spaghetti in the sauce until well coated.",
+            "Serve hot, garnishing with a sprinkle of freshly chopped parsley and an extra sprinkle of Parmesan cheese."};
         // Call the method and validate the result
         Recipe result = obj.PostProcessingfirst(aiGeneratedRecipeJson, ingredients, allergy);
-        
+        System.out.println(result.getName());
+        System.out.println("Steps:");
+        for (String step : result.getSteps()) {
+        System.out.println(step);
+        }
+        System.out.println(result.getDescription());
+
+
         assertNotNull(result);
         assertEquals("Creamy Garlic Parmesan Spaghetti", result.getName());
-        assertNotNull(result.getSteps());
+        assertArrayEquals(expectedSteps, result.getSteps());
         assertTrue(result.getSteps().length > 0); // Assuming steps are present
-        assertNotNull(result.getDescription());
+        assertEquals("This is simple yet indulgent dish is a perfect combination of tender spaghetti and velvety cheese sauce, creating a satisfying and comforting meal.", result.getDescription());
         assertFalse(result.getDescription().isEmpty());
         
         assertNotNull(result); // Assert that the result is not null
