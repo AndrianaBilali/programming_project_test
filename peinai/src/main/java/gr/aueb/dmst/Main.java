@@ -130,7 +130,7 @@ public class Main {
 
                 // Appending the user question to send it to the api.
                 String userQuestion = "Can you give me a recipe with the following ingredients: "
-                        + ingredients.toString() + " favorite ingredients include: " + preferences.getFavIngredients()
+                        + ingredients + " favorite ingredients include: " + preferences.getFavIngredients()
                         + " worst ingredients include: " + preferences.getWorstIngredients() + " allergies: "
                         + preferences.getAllergy();
 
@@ -155,8 +155,7 @@ public class Main {
                 System.out.println(apiResponse);
 
                 // The recipe will be saved in a file
-                DataFile datafile = new DataFile(modifiedUserQuestion, apiResponse); // remember to use the modified api
-                                                                                     // response
+                DataFile datafile = new DataFile(modifiedUserQuestion, apiResponse);
                 System.out.println("Your recipe will now be saved in a file...");
                 // Creating the file if it doesn't exist
                 DataFile.createFile();
