@@ -17,11 +17,6 @@ public class Main {
         System.out.println(
                 "If you wish to quit please enter 0. If you wish to continue, please enter 1");
         int choise = in.nextInt();
-        // Creating OpenAiCommunication object
-        // The connection opens here because we don't want it to open and close evrry
-        // time in the loop
-        OpenAICommunication openAI = new OpenAICommunication();
-        openAI.openConnection();
         // The app starts if the user enters
         while (choise == 1) {
             System.out.println("New user! Please enter the following information: ");
@@ -44,14 +39,14 @@ public class Main {
             String birthDateString = sc.nextLine();
             LocalDate birthDate = LocalDate.parse(birthDateString);
 
-            System.out.print("\nEnter allergy: ");
-            System.out.print("If you have no allergies input 'no allergies'\n");
+            System.out.print("\nEnter allergy ");
+            System.out.print("(If you have no allergies input 'no allergies') :\n");
             String allergy = sc.nextLine();
 
             // preferences information
             // favorite ingredients of the user
             Set<String> favIngredients = new HashSet<>();
-            System.out.println("Enter favorite ingredients (type 'exit' to stop): \n");
+            System.out.println("Enter favorite ingredients (type 'exit' to stop): ");
             while (true) {
                 System.out.print("Enter an ingredient: ");
                 // read the ingredient and trim any accidental whitespaces
@@ -67,7 +62,7 @@ public class Main {
 
             // ingredients the user does not like
             Set<String> worstIngredients = new HashSet<>();
-            System.out.println("Enter ingredients you don't like (type 'exit' to stop): \n");
+            System.out.println("Enter ingredients you don't like (type 'exit' to stop): ");
             while (true) {
                 System.out.print("Enter an ingredient: ");
                 // read the ingredient and trim amy accidental whitespaces again
@@ -76,7 +71,7 @@ public class Main {
                     break;
                 }
                 worstIngredients.add(input2);
-                System.out.println("Enter ingredients you don't like (type 'exit' to stop): \n");
+                System.out.println("Enter ingredients you don't like (type 'exit' to stop): ");
             }
             System.out.println("Ingredients you don't like: " + worstIngredients);
 
@@ -103,6 +98,10 @@ public class Main {
             // loop for the recipe
             int a = 1;
             while (true) {
+                // Creating OpenAiCommunication object
+                // We want to open and close the connection for each recipe
+                OpenAICommunication openAI = new OpenAICommunication();
+                openAI.openConnection();
                 System.out.println("Recipe number: " + a);
                 System.out.println("Please enter the ingredients that you want your meal to contain ");
                 // Initialization of the ArrayList that contains the ingredients
@@ -127,10 +126,11 @@ public class Main {
                 for (String value : ingredients) {
                     System.out.println(value);
                 }
+                System.out.println("Please wait while we are preparing your recipe...");
 
                 // Appending the user question to send it to the api.
                 String userQuestion = "Can you give me a recipe with the following ingredients: "
-                        + ingredients + " favorite ingredients include: " + preferences.getFavIngredients()
+                        + ingredients.toString() + " favorite ingredients include: " + preferences.getFavIngredients()
                         + " worst ingredients include: " + preferences.getWorstIngredients() + " allergies: "
                         + preferences.getAllergy();
 
@@ -166,6 +166,9 @@ public class Main {
                 // Counting the bytes of the file
                 long byteCount = datafile.byteCount();
                 System.out.println("The recipe has successfully been saved to the file!");
+                // Closing the connection to make sure that if the user does not want another
+                // recipe it won't stay open
+                openAI.closeConnection();
 
                 System.out.println("Would you like to enter ingredients for another recipe?");
                 System.out.println("If yes, please enter 1, else enter 0");
@@ -181,8 +184,7 @@ public class Main {
                     "If you wish to quit please enter 0. If you wish to continue, please enter 1");
             choise = in.nextInt();
         }
-        // Closing the connection and Scanner when the user quits the app
-        openAI.closeConnection();
+        // Closing the Scanner when the user quits the app
         sc.close();
         in.close();
     }

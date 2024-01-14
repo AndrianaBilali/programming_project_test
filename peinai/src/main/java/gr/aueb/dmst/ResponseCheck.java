@@ -88,10 +88,10 @@ public class ResponseCheck {
         // τσεκάρω τισ λέξεισ για δύσκολουσ μαγειρικούς όρους
         for (String word : words) {
             if (termReplacements.containsKey(word)) {
-                System.out.println (termReplacements.get(word));
+                System.out.println(termReplacements.get(word));
             }
         }
-        
+
     }
 
     public static boolean validateRecipe(Recipe recipe) {
@@ -147,13 +147,13 @@ public class ResponseCheck {
     }
 
     public static String AllergyCheck(String aiText, String allergy) throws Allergyexception {
-        if (!allergy.equals("no")){
+        if (!allergy.equals("no")) {
             boolean found = isWordInText(aiText, allergy);
             if (found) {
-            throw new Allergyexception("Allergy found in the recipe");
+                throw new Allergyexception("Allergy found in the recipe");
             }
             if (found) {
-            return "Allergy" + allergy + "found in the recipe, give me a new one";
+                return "Allergy" + allergy + "found in the recipe, give me a new one";
             } else {
                 return "no allergy found in the recipe";
             }
@@ -193,7 +193,7 @@ public class ResponseCheck {
         // Split recipe into name, ingredients, and steps
         String[] parts = recipeString.split(": ", 2); // Split by the first occurrence of ": "
         recipe.setName(parts[0]); // First part is the name
-        
+
         String[] stepsAndDescription = parts[1].split("\\. "); // Split the remaining part by ". " to get steps and
                                                                // description
         String[] steps = new String[stepsAndDescription.length - 1];
@@ -201,12 +201,12 @@ public class ResponseCheck {
             steps[i] = stepsAndDescription[i] + ".";
         }
         recipe.setSteps(steps); // Steps are everything before the last sentence
-        
+
         // Last sentence is typically the description, but it might vary
         String description = stepsAndDescription[stepsAndDescription.length - 1];
         // Assuming the description is not a step, add it to the steps list
         recipe.setDescription(description);
-        
+
         // Ingredients extraction might vary based on how they are structured in your
         // recipes
         // Here, I'm using a simple approach of splitting by commas and "and"
@@ -227,6 +227,9 @@ public class ResponseCheck {
             Recipe structuredrecipe = parseRecipe(recipe);
             boolean valid = validateRecipe(structuredrecipe);
             System.out.println("The recipe is " + valid);
+            System.out.println();
+            System.out.println();
+            System.out.println();
             return structuredrecipe;
         } catch (Exception e) {
             e.printStackTrace();

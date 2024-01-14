@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: gr.aueb.dmst.UserTest
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.021 s - in gr.aueb.dmst.UserTest
-=======
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 s - in gr.aueb.dmst.UserTest
->>>>>>> 4c93a3ee6d1a20fd42da097314831b3649586bda
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s - in gr.aueb.dmst.UserTest

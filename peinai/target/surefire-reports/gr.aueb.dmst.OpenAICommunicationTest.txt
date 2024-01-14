@@ -1,8 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: gr.aueb.dmst.OpenAICommunicationTest
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.183 s - in gr.aueb.dmst.OpenAICommunicationTest
-=======
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.025 s - in gr.aueb.dmst.OpenAICommunicationTest
->>>>>>> 4c93a3ee6d1a20fd42da097314831b3649586bda
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.963 s - in gr.aueb.dmst.OpenAICommunicationTest
