@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: gr.aueb.dmst.UserServiceTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 4.397 s <<< FAILURE! - in gr.aueb.dmst.UserServiceTest
+testSignUpSuccess  Time elapsed: 0.148 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at gr.aueb.dmst.UserServiceTest.testSignUpSuccess(UserServiceTest.java:41)
+
+testSignUpFailure  Time elapsed: 0.041 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at gr.aueb.dmst.UserServiceTest.testSignUpFailure(UserServiceTest.java:54)
+
