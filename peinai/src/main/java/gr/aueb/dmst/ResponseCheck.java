@@ -146,14 +146,11 @@ public class ResponseCheck {
         return false; // Word not found in the text
     }
 
-    public static String AllergyCheck(String aiText, String allergy) throws Allergyexception {
-        if (!allergy.equals("no")) {
+    public static String AllergyCheck(String aiText, String allergy) {
+        if (!allergy.equals("no allergies")) {
             boolean found = isWordInText(aiText, allergy);
             if (found) {
-                throw new Allergyexception("Allergy found in the recipe");
-            }
-            if (found) {
-                return "Allergy" + allergy + "found in the recipe, give me a new one";
+                return "Warning Allergy might have been found in the recipe";
             } else {
                 return "no allergy found in the recipe";
             }

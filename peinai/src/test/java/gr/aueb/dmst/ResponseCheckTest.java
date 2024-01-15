@@ -53,23 +53,16 @@ public class ResponseCheckTest{
     public void testAllergyCheck_AllergyFound() {
         String aiText = "This recipe contains peanuts and dairy.";
         String allergy = "peanuts";
-
-        Allergyexception exception = assertThrows(Allergyexception.class, () -> {
-            ResponseCheck.AllergyCheck(aiText, allergy);
-        });
-
-        assertEquals("Allergy found in the recipe", exception.getMessage());
+        String result = obj.AllergyCheck(aiText, allergy);
+        assertEquals("Warning Allergy might have been found in the recipe", result);
     }
 
     @Test
     public void testAllergyCheck_AllergyNotFound() {
         String aiText = "This recipe contains milk, strawberries and ice cream.";
         String allergy = "peanuts";
-
-        assertDoesNotThrow(() -> {
-            String result = ResponseCheck.AllergyCheck(aiText, allergy);
-            assertEquals("no allergy found in the recipe",result);
-        });
+        String result = obj.AllergyCheck(aiText, allergy);
+        assertEquals("no allergy found in the recipe",result);    ;
     }
 
     @Test
@@ -135,9 +128,7 @@ public class ResponseCheckTest{
         Recipe result = obj.PostProcessingfirst(aiGeneratedRecipeJson, ingredients, allergy);
         System.out.println(result.getName());
         System.out.println("Steps:");
-        for (String step : result.getSteps()) {
-        System.out.println(step);
-        }
+    
         System.out.println(result.getDescription());
 
 
