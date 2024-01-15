@@ -47,6 +47,8 @@ public class OpenAICommunication {
     }
 
     public void sendRequest(String userQuestion) {
+        String apiKey = System.getenv("API_KEY");
+        apiKey = apiKey.trim();
         try {
             connection.setRequestMethod("POST"); // to indicate that i will be sending data to the model
         } catch (ProtocolException e) {
@@ -54,8 +56,7 @@ public class OpenAICommunication {
         }
         connection.setDoOutput(true); // to indicate that i am expecting the model's response
         connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("Authorization",
-                "Bearer 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"); // key
+        connection.setRequestProperty("Authorization", "Bearer " + apiKey); // key
 
         try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
 

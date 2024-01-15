@@ -165,7 +165,7 @@ public class Main {
                 datafile.dataWriter();
                 // Counting the bytes of the file
                 long byteCount = datafile.byteCount();
-                System.out.println("The recipe has successfully been saved to the file!");
+                System.out.println("File bye size: " + byteCount);
                 // Closing the connection to make sure that if the user does not want another
                 // recipe it won't stay open
                 openAI.closeConnection();
