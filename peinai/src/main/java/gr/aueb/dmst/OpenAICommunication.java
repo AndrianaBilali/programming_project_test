@@ -11,6 +11,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.DataOutputStream;
 
+/**
+ * This class makes a connection to an API endpoint through REST API
+ * And receives the response which is the recipe
+ */
+
 public class OpenAICommunication {
     // setting the API endpoint
     private static final String endpoint = "https://api.openai.com/v1/chat/completions";
@@ -47,10 +52,10 @@ public class OpenAICommunication {
     }
 
     public void sendRequest(String userQuestion) {
-        String apiKey = System.getenv("API_KEY");
+        String apiKey = System.getenv("API_KEY"); // environment variable
         apiKey = apiKey.trim();
         try {
-            connection.setRequestMethod("POST"); // to indicate that i will be sending data to the model
+            connection.setRequestMethod("POST"); // to indicate that data is to be sent to the model
         } catch (ProtocolException e) {
             e.printStackTrace();
         }
@@ -69,7 +74,7 @@ public class OpenAICommunication {
             ObjectNode message = objectMapper.createObjectNode();
             message.put("role", "user");
             message.put("content", userQuestion
-                    + "Describe the recipe in a maximum of 100 words.");
+                    + "Describe the recipe in a maximum of 200 words.");
             payloadJson.set("messages", objectMapper.createArrayNode().add(message));
             payloadJson.put("temperature", 0.7);
 

@@ -154,6 +154,9 @@ public class Main {
                     System.out.println(step);
                 }
                 System.out.println(result.getDescription());
+                System.out.println();
+                System.out.println();
+                System.out.println();
 
                 // The recipe will be saved in a file
                 DataFile datafile = new DataFile(modifiedUserQuestion, apiResponse);
