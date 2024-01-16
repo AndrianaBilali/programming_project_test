@@ -21,8 +21,12 @@ public class UserQuery {
         return query;
     }
 
-    // total pre-processing of the query
-    // returns the modified query
+     
+    /**
+     *total pre-processing of the query
+     *calls all the methods of the class 
+     *returns the modified query
+     */
     public String modify() throws IOException {
         this.EmptyQuery();
         this.checkLanguage();
@@ -43,22 +47,34 @@ public class UserQuery {
         return mquery;
     }
 
-    // removes the blank spaces from the query and returns it
+    /**
+     *removes the blank spaces from the query and returns it
+     */
+    
     public void TrimQuery() {
         query = query.trim();
 
-    }// converts the query in lower letters and returns it
+    }
+    /**
+     *converts the query in lower letters and returns it
+     */
 
     public void LowerCaseQuery() {
         query = query.toLowerCase();
 
-    }// first letter capital
-
+    }
+    /**
+     *first letter capital
+     */
+    
     public void CapitalFirstLetter() {
         query = query.substring(0, 1).toUpperCase() + query.substring(1);
     }
 
-    // checks if the user has not entered a query
+    /**
+     *checks if the user has not entered a query
+     */
+    
     public void EmptyQuery() {
         while (query.isEmpty() == true) {
             System.out.println("You have not entered a query. Please try again");
@@ -68,12 +84,16 @@ public class UserQuery {
         }
     }
 
-    // removes the newline characters and tabs from the query
-    public void remove_Newlines_Tabs() {
-        query = query.replaceAll("[\n\t]", "");
+    /**
+     *removes the newline characters and tabs from the query
+     */
+      public void remove_Newlines_Tabs() {
+      query = query.replaceAll("[\n\t]", "");
     }
 
-    // checks if the query is written in the English language
+    /**
+     *checks if the query is written in the English language
+     */
     public void checkLanguage() {
         while (query.matches("^[^\\p{Script=Greek}]*$") != true) {
             System.out.println(
@@ -85,7 +105,10 @@ public class UserQuery {
 
     }
 
-    // checks if the query is relatable with food
+    /**
+     *checks if the query is relatable with food
+     */
+    
     public void foodContent() {
         boolean containsFood = (query.contains("recipe") || (query.contains("Recipe")));
         while (true) {
@@ -107,11 +130,4 @@ public class UserQuery {
         }
     }
 
-    /*
-     * public static void main(String[] args) throws IOException {
-     * UserQuery n = new UserQuery("tell me a recipy that ");
-     * String mofified_query = n.modify();
-     * System.out.println(mofified_query);
-     * }
-     */
 }
