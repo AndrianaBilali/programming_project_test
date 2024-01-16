@@ -81,7 +81,7 @@ public class OpenAICommunication {
             ObjectNode message = objectMapper.createObjectNode();
             message.put("role", "user");
             message.put("content", userQuestion
-                    + "Describe the recipe in a maximum of 200 words.");
+                    + "Describe the recipe in a maximum of 100 words.");
             payloadJson.set("messages", objectMapper.createArrayNode().add(message));
             payloadJson.put("temperature", 0.7);
 

@@ -147,8 +147,10 @@ public class Main {
                 openAI.sendRequest(modifiedUserQuestion);
                 String apiResponse = openAI.receiveResponse();
                 // Post-processing
+
                 ResponseCheck resp = new ResponseCheck();
-                Recipe result = resp.PostProcessingfirst(apiResponse, ingredients, preferences.getAllergy());
+                Recipe result = resp.PostProcessingfirst(apiResponse, ingredients,
+                        preferences.getAllergy());
                 System.out.println(result.getName());
                 for (String step : result.getSteps()) {
                     System.out.println(step);
@@ -158,15 +160,17 @@ public class Main {
                 System.out.println();
                 System.out.println();
 
+                System.out.println(apiResponse);
+
                 // The recipe will be saved in a file
                 DataFile datafile = new DataFile(modifiedUserQuestion, apiResponse);
                 System.out.println("Your recipe will now be saved in a file...");
 
                 DataFile.createFile();
-
                 datafile.dataWriter();
-
                 long byteCount = datafile.byteCount();
+
+                System.out.println("Byte Count: " + byteCount);
                 System.out.println("File byte size: " + byteCount);
                 // Closing the connection to make sure that if the user does not want another
                 // recipe it won't stay open

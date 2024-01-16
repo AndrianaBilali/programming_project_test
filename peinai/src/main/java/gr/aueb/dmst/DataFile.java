@@ -2,18 +2,23 @@ package gr.aueb.dmst;
 
 import java.io.*;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.nio.file.InvalidPathException;
+import java.util.Scanner;
 
 public class DataFile {
 
     // Saves AI responses after post-processing the data
-    private static final String FILE_PATH = "data/browsing-history.txt";
+    private static final String FILE_PATH = "C:\\Users\\andri\\OneDrive\\Documents\\GitHub\\programming_project_test\\peinai\\data\\data-browsing.txt";
     private static File outputFile;
     private String question;
     private String response;
 
     // Initiallizes instance variables
     public DataFile(String question, String response) {
+
         this.question = question;
         this.response = response;
     }
@@ -25,6 +30,17 @@ public class DataFile {
     public String getResponse() {
         return response;
     }
+
+    /*
+     * public static void convertPath() {
+     * Scanner sc = new Scanner(System.in);
+     * System.out.println("Please enter the path of the data directory:");
+     * String originalPath = sc.nextLine();
+     * String convertedPath = originalPath.replace("\\", "\\\\");
+     * FILE_PATH = convertedPath;
+     * 
+     * }
+     */
 
     // Creates file το FILE_PATH based on some customised parameters
     public static void createFile() {
@@ -60,6 +76,21 @@ public class DataFile {
     }
 
     // Counts the byte size of the specific file
+    /*
+     * try (var buff = new BufferedInputStream(new
+     * FileInputStream(outputFile.getName()))) {
+     * return Files.size(Paths.get(outputFile.getPath()));
+     */
+
+    /*
+     * } catch (FileNotFoundException e) {
+     * System.err.println("Unable to open file " + outputFile.getName() + ": " +
+     * e.getMessage());
+     * return -1L;
+     * } catch (IOException e) {
+     * System.err.println("Error reading byte: " + e.getMessage());
+     * return -1L;
+     */
     public long byteCount() {
 
         try (var buff = new BufferedInputStream(new FileInputStream(outputFile.getPath()))) {
