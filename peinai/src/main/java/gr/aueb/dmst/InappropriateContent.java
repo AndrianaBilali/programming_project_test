@@ -18,9 +18,10 @@ public class InappropriateContent {
         this.textToAnalyze = textToAnalyze;
     }
 
+    /**
+     * Send the request and get the response
+     */
     public double checkContent() throws IOException {
-
-        // Send the request and get the response
         String toxicityScore = analyzeText(apiKey, textToAnalyze);
         String extractedToxicityScore = extractToxicityScore(toxicityScore);
         String input = extractedToxicityScore;
@@ -31,6 +32,9 @@ public class InappropriateContent {
         return doubletoxicity;
     }
 
+    /**
+     *creates a connection with the REST API server and receives the response
+     */
     private static String analyzeText(String apiKey, String text) throws IOException {
         String apiUrl = "https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key=AIzaSyBCn3o2sQkPcRTLCKn4shgrk3HnTUqYI0o";
 
@@ -68,7 +72,9 @@ public class InappropriateContent {
 
         }
     }
-
+    /**
+     *extracts the toxicity of the query
+     */
     private static String extractToxicityScore(String jsonResponse) {
         int indexOfToxicity = jsonResponse.indexOf("\"summaryScore\": ");
         if (indexOfToxicity != -1) {
