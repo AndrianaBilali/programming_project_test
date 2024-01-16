@@ -26,7 +26,9 @@ public class OpenAICommunication {
         connection = null;
     }
 
-    // method to open the connection
+    /**
+     * Opens a connection to the OpenAI GPT-3.5-turbo API endpoint
+     */
     public void openConnection() {
         URL url = null;
         try {
@@ -51,6 +53,11 @@ public class OpenAICommunication {
         }
     }
 
+    /**
+     * Sends a user's request to the OpenAI GPT-3.5-turbo model
+     *
+     * @param userQuestion The user's request to be sent to the model
+     */
     public void sendRequest(String userQuestion) {
         String apiKey = System.getenv("API_KEY"); // environment variable
         apiKey = apiKey.trim();
@@ -91,7 +98,11 @@ public class OpenAICommunication {
         // We are now awaiting the response.
     }
 
-    // method to recieve response
+    /**
+     * Receives the response from the model
+     *
+     * @return The response received from the model
+     */
     public String receiveResponse() {
         StringBuilder response = new StringBuilder();
         try {
@@ -112,7 +123,9 @@ public class OpenAICommunication {
         return response.toString();
     }
 
-    // method to close the connection
+    /**
+     * Closes the connection
+     */
     public void closeConnection() {
         if (connection != null) {
             connection.disconnect();
