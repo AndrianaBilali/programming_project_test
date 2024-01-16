@@ -1,38 +1,43 @@
 package gr.aueb.dmst;
 
-// Jakarta Persistence API annotations for defining the mapping between objects and database tables
+/** Jakarta Persistence API annotations for defining the mapping between objects and database tables */ 
 import jakarta.persistence.Column;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-// Apache Commons Codec for password hashing
+/** Apache Commons Codec for password hashing */
 import org.apache.commons.codec.digest.DigestUtils;
 
-// Jakarta Persistence API annotations for cascading and joining
+/** Jakarta Persistence API annotations for cascading and joining */
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
-//used for the calculation of the user's age
+/** used for the calculation of the user's age */
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.format.DateTimeParseException; // Import for handling date parsing exceptions
+import java.time.format.DateTimeParseException;
 
-/*instances of the class should be treated as JPA entities, and their state
-will be persisted to the database.*/
+/** instances of the class should be treated as JPA entities and their state
+ *  will be persisted to the database
+ */
 @Entity
 public class User {
-
-    // specifies that the username field is the primary key for the entity
-    @Id
+    /**
+     * Creates the User Profile
+     * 
+     * @return username, password, email, gender and age
+     */
+    
+    @Id /** specifies that the username field is the primary key for the entity */
     @Column(nullable = false, unique = true)
     private String username;
 
-    /*
-     * These annotations define the mapping of the fields,
-     * password,gender and email to database columns
+    /**
+     * These annotations define the mapping of the fields
+     * password, gender and email to database columns
      */
     @Column(nullable = false)
     private String password;
@@ -43,16 +48,16 @@ public class User {
     @Column(nullable = true)
     private String gender;
 
-    // specifies that the birthDate field should be mapped to a SQL DATE column
+    /** specifies that the birthDate field should be mapped to a SQL DATE column */
     @Temporal(TemporalType.DATE)
     @Column(nullable = true)
-    private LocalDate birthDate; // Changed to LocalDate
+    private LocalDate birthDate;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "preference_id", referencedColumnName = "preferenceId")
     private Preferences preferences;
 
-    // getters and setters
+    /** getters and setters */
     public void setUsername(String username) {
         this.username = username;
     }
@@ -74,17 +79,15 @@ public class User {
     }
 
     public boolean verifyPassword(String rawPassword) {
-        // Verify the password by comparing the hashed version
+        /** Verify the password by comparing the hashed version */
         return hashPassword(rawPassword).equals(this.password);
     }
 
-    // Protected method to hash the password using Apache Commons Codec DigestUtils
+    /** Protected method to hash the password using Apache Commons Codec DigestUtils */
     protected String hashPassword(String password) {
         try {
-            // using Apache Commons Codec DigestUtils
             return DigestUtils.sha256Hex(password);
         } catch (Exception e) {
-            // Handle hashing errors
             throw new RuntimeException("Error hashing password", e);
         }
     }
@@ -105,7 +108,7 @@ public class User {
         return birthDate;
     }
 
-    // method for calculating user's age
+    /** method for calculating user's age */
     public int calculateAge() {
         try {
             if (birthDate == null) {
@@ -122,12 +125,11 @@ public class User {
 
             return period.getYears();
         } catch (DateTimeParseException e) {
-            // Handle date parsing errors
             throw new RuntimeException("Error calculating age", e);
         }
     }
 
-    // Getters and setters for Preferences
+    /** Getters and setters for Preferences */
     public void setPreferences(Preferences preferences) {
         this.preferences = preferences;
     }
@@ -136,7 +138,7 @@ public class User {
         return preferences;
     }
 
-    // Exception Handling
+    /** Exception Handling */
     public User(String username, String password, String email, String gender, LocalDate birthDate,
             Preferences preferences) {
         validateUsername(username);
@@ -166,14 +168,12 @@ public class User {
     }
 
     private void validateEmail(String email) {
-        // check for non-null and non-empty
         if (email == null || email.isEmpty()) {
             throw new IllegalArgumentException("Email cannot be null or empty");
         }
     }
 
     private void validateGender(String gender) {
-        // check for valid input for gender
         if (!"female".equals(gender) && !"male".equals(gender) && !"other".equals(gender)) {
             throw new IllegalArgumentException("Invalid input");
         }

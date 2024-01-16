@@ -11,10 +11,14 @@ import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Preferences {
-    // specifies that the preferenceId field is the primary key for the entity
-    @Id
-    // is used for databases that support auto-incrementing primary keys
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /**
+     * Saves to a database user's preferences
+     * 
+     * @return allergies, favourite ingredients and worst ingredients
+     */
+    
+    @Id /** specifies that the preferenceId field is the primary key for the entity */
+    @GeneratedValue(strategy = GenerationType.IDENTITY) /** used for databases that support auto-incrementing primary keys */
     private Long preferenceId;
 
     @Column(nullable = true)
@@ -26,21 +30,21 @@ public class Preferences {
     @ManyToMany
     private Set<String> worstIngredients;
 
-    // Constructors
+    /** Constructors */
 
-    // Default constructor
+    /** Default constructor */
     public Preferences() {
         this.preferenceId = 0L;
     }
 
-    // Parameterized constructor
+    /** Parameterized constructor */
     public Preferences(String allergy, Set<String> favIngredients, Set<String> worstIngredients) {
         this.allergy = allergy;
         this.favIngredients = favIngredients;
         this.worstIngredients = worstIngredients;
     }
 
-    // Getters and Setters
+    /** Getters and Setters */
     public Long getPreferenceId() {
         return preferenceId;
     }
