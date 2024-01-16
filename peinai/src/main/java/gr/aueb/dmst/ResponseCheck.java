@@ -12,8 +12,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 
-public class ResponseCheck {
-    public String SpellingAndGrammarCheck(String aiAnswer) {
+public class ResponseCheck {//This class is responsible for post processing the AI response
+    public String SpellingAndGrammarCheck(String aiAnswer) {//detects and corrects spelling errors by using languagetool
         try {
             JLanguageTool languageTool = new JLanguageTool(new AmericanEnglish());
             // Detecting spelling errors
@@ -80,12 +80,11 @@ public class ResponseCheck {
                 "To grate the outer, colored portion of the skin of a citrus fruit, avoiding the white pith. The thin parings that result are also called the zest.");
     }
 
-    // επεξήγηση των περίπλοκων όρων
+    // explains hard cooking terms
     public void simplifyTerms(String text) {
-        // χωρίζω το κείμενο σε λέξεισ
         text = text.toLowerCase();
         String[] words = text.split("\\s+");
-        // τσεκάρω τισ λέξεισ για δύσκολουσ μαγειρικούς όρους
+        // checks the words of the response for words in the termreplacements hashmap
         for (String word : words) {
             if (termReplacements.containsKey(word)) {
                 System.out.println(termReplacements.get(word));
@@ -94,14 +93,14 @@ public class ResponseCheck {
 
     }
 
-    public static boolean validateRecipe(Recipe recipe) {
+    public static boolean validateRecipe(Recipe recipe) {// checks if there are empty steps or ingredients
         boolean isValid = true;
         try {
 
             List<String> cleanedIngredients = new ArrayList<>();
             for (String ingredient : recipe.getIngredients()) {
 
-                // Example: Check if the ingredient is not empty
+               
                 if (ingredient.isEmpty()) {
                     isValid = false;
                     System.out.println("Empty ingredient found.");
@@ -113,7 +112,7 @@ public class ResponseCheck {
 
             List<String> cleanedSteps = new ArrayList<>();
             for (String step : recipe.getSteps()) {
-                // Example: Check if the step is not empty
+                
                 if (step.isEmpty()) {
                     isValid = false;
                     System.out.println("Empty step found.");
@@ -129,7 +128,7 @@ public class ResponseCheck {
         return isValid;
     }
 
-    public static boolean isWordInText(String text, String word) {
+    public static boolean isWordInText(String text, String word) {// Checks if a specific word is contained in the ai response
         // Convert text to lowercase to perform case-insensitive check
         String lowercaseText = text.toLowerCase();
         // Split the text into words using whitespace as a delimiter
@@ -140,13 +139,13 @@ public class ResponseCheck {
             String cleanedWord = w.replaceAll("[^a-zA-Z]", "");
             // Check if the cleaned word matches the specified word
             if (cleanedWord.equals(word.toLowerCase())) {
-                return true; // Word found in the text
+                return true; 
             }
         }
-        return false; // Word not found in the text
+        return false; 
     }
 
-    public static String AllergyCheck(String aiText, String allergy) {
+    public static String AllergyCheck(String aiText, String allergy) {//Checks if the users allergy is contained in the response
         if (!allergy.equals("no allergies")) {
             boolean found = isWordInText(aiText, allergy);
             if (found) {
@@ -159,7 +158,7 @@ public class ResponseCheck {
         }
     }
 
-    public void PreferencesCheck(String aiText, ArrayList<String> ingredients) {
+    public void PreferencesCheck(String aiText, ArrayList<String> ingredients) {//checks if all the ingridients the user asked are in the recipe
         int counter = 0;
         for (String ingredient : ingredients) {
             boolean found = isWordInText(aiText, ingredient);
@@ -169,7 +168,7 @@ public class ResponseCheck {
         }
     }
 
-    public String extractRecipeContent(String aiResponse) { // recipe format 1
+    public String extractRecipeContent(String aiResponse) { // gets the message from the ai generated response
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode rootNode = mapper.readTree(aiResponse);
@@ -185,7 +184,7 @@ public class ResponseCheck {
         }
     }
 
-    public static Recipe parseRecipe(String recipeString) {// 2
+    public static Recipe parseRecipe(String recipeString) {// returns a recipe object containing the parts of the recipy
         Recipe recipe = new Recipe();
         // Split recipe into name, ingredients, and steps
         String[] parts = recipeString.split(": ", 2); // Split by the first occurrence of ": "
@@ -204,16 +203,14 @@ public class ResponseCheck {
         // Assuming the description is not a step, add it to the steps list
         recipe.setDescription(description);
 
-        // Ingredients extraction might vary based on how they are structured in your
-        // recipes
-        // Here, I'm using a simple approach of splitting by commas and "and"
+        
         String[] ingredients = parts[1].split("\\. ")[0].split(", and |, | and ");
         recipe.setIngredients(ingredients);
 
         return recipe;
     }
 
-    public Recipe PostProcessingfirst(String aiGeneratedRecipeJson, ArrayList<String> ingredients, String Allergy) {
+    public Recipe PostProcessingfirst(String aiGeneratedRecipeJson, ArrayList<String> ingredients, String Allergy) {//method that calls all of the above
         try {
             String recipe = extractRecipeContent(aiGeneratedRecipeJson);
             recipe = SpellingAndGrammarCheck(recipe);
@@ -243,7 +240,7 @@ class Allergyexception extends Exception {
     }
 }
 
-class Recipe {
+class Recipe {//class that represents a recipe and its details
     private String name;
     private String[] ingredients;
     private String[] steps;
