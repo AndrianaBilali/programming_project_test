@@ -17,7 +17,7 @@ public class Main {
         System.out.println(
                 "If you wish to quit please enter 0. If you wish to continue, please enter 1");
         int choise = in.nextInt();
-        // The app starts if the user enters
+        // The app starts if the user enters 1
         while (choise == 1) {
             System.out.println("New user! Please enter the following information: ");
             // sign up part
@@ -164,7 +164,7 @@ public class Main {
                 datafile.dataWriter();
 
                 long byteCount = datafile.byteCount();
-                System.out.println("File bye size: " + byteCount);
+                System.out.println("File byte size: " + byteCount);
                 // Closing the connection to make sure that if the user does not want another
                 // recipe it won't stay open
                 openAI.closeConnection();
