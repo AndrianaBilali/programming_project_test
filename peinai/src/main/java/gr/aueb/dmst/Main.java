@@ -9,7 +9,7 @@ import java.util.HashSet;
 
 public class Main {
     public static void main(String[] args) {
-        // Initializing the scanner
+
         Scanner sc = new Scanner(System.in);
         Scanner in = new Scanner(System.in);
 
@@ -22,19 +22,19 @@ public class Main {
             System.out.println("New user! Please enter the following information: ");
             // sign up part
             // user information
-            // username
+
             System.out.print("Enter username: ");
             String username = sc.nextLine();
-            // password
+
             System.out.print("\nEnter password (Password must be at least 8 characters long): ");
             String password = sc.nextLine();
-            // email
+
             System.out.print("\nEnter email: ");
             String email = sc.nextLine();
-            // gender
+
             System.out.print("\nEnter gender (female/male/other): ");
             String gender = sc.nextLine();
-            // birth date
+
             System.out.print("\nEnter birth date (YYYY-MM-DD): ");
             String birthDateString = sc.nextLine();
             LocalDate birthDate = LocalDate.parse(birthDateString);
@@ -75,7 +75,6 @@ public class Main {
             }
             System.out.println("Ingredients you don't like: " + worstIngredients);
 
-            // Create Preferences object
             Preferences preferences = new Preferences(allergy, favIngredients,
                     worstIngredients);
             // Create User object (create new user)
@@ -159,11 +158,11 @@ public class Main {
                 // The recipe will be saved in a file
                 DataFile datafile = new DataFile(modifiedUserQuestion, apiResponse);
                 System.out.println("Your recipe will now be saved in a file...");
-                // Creating the file if it doesn't exist
+
                 DataFile.createFile();
-                // Saving the ingredients and recipe in the file
+
                 datafile.dataWriter();
-                // Counting the bytes of the file
+
                 long byteCount = datafile.byteCount();
                 System.out.println("File bye size: " + byteCount);
                 // Closing the connection to make sure that if the user does not want another
