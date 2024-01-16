@@ -56,7 +56,7 @@ public class OpenAICommunication {
         }
         connection.setDoOutput(true); // to indicate that i am expecting the model's response
         connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("Authorization", "Bearer " + apiKey); // key
+        connection.setRequestProperty("Authorization", apiKey); // key
 
         try (DataOutputStream wr = new DataOutputStream(connection.getOutputStream())) {
 
