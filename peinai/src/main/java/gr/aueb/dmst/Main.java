@@ -160,7 +160,6 @@ public class Main {
                 System.out.println();
                 System.out.println();
 
-                System.out.println(apiResponse);
 
                 // The recipe will be saved in a file
                 DataFile datafile = new DataFile(modifiedUserQuestion, apiResponse);

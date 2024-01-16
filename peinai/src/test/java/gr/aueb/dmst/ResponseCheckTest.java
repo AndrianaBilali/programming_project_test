@@ -128,7 +128,9 @@ public class ResponseCheckTest{
         Recipe result = obj.PostProcessingfirst(aiGeneratedRecipeJson, ingredients, allergy);
         System.out.println(result.getName());
         System.out.println("Steps:");
-    
+        for (String step : result.getSteps()) {
+                    System.out.println(step);
+                }
         System.out.println(result.getDescription());
 
 
