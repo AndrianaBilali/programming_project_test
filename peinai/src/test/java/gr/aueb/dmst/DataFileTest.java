@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.io.File;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +20,8 @@ public class DataFileTest {
     @BeforeEach
     public void setUp() {
         datafile = new DataFile("Test Question", "Test Response");
-        testFilePath = "C:\\Users\\andri\\OneDrive\\Documents\\GitHub\\programming_project_test\\peinai\\data\\data-browsing.txt";
+        testFilePath = System.getProperty("user.home") +
+                File.separator + "data-browsing.txt";
     }
 
     @AfterEach

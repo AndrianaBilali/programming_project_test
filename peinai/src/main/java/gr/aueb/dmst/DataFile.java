@@ -11,7 +11,8 @@ import java.util.Scanner;
 public class DataFile {
 
     // Saves AI responses after post-processing the data
-    private static final String FILE_PATH = "C:\\Users\\andri\\OneDrive\\Documents\\GitHub\\programming_project_test\\peinai\\data\\data-browsing.txt";
+    private static final String FILE_PATH = System.getProperty("user.home") +
+            File.separator + "data-browsing.txt";
     private static File outputFile;
     private String question;
     private String response;
