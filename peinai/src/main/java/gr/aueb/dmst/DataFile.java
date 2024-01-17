@@ -32,17 +32,6 @@ public class DataFile {
         return response;
     }
 
-    /*
-     * public static void convertPath() {
-     * Scanner sc = new Scanner(System.in);
-     * System.out.println("Please enter the path of the data directory:");
-     * String originalPath = sc.nextLine();
-     * String convertedPath = originalPath.replace("\\", "\\\\");
-     * FILE_PATH = convertedPath;
-     * 
-     * }
-     */
-
     // Creates file το FILE_PATH based on some customised parameters
     public static void createFile() {
 
@@ -116,7 +105,7 @@ public class DataFile {
     // FileWriter writes the data as characters not bytes
     public void dataWriter() {
 
-        try (var buff = new BufferedWriter(new FileWriter(outputFile))) {
+        try (var buff = new BufferedWriter(new FileWriter(outputFile, true))) {
             buff.write("Q: " + question + "\nA: " + response + "\n\n");
             buff.close();
             System.out.println("Data writing was successful");
@@ -145,15 +134,4 @@ public class DataFile {
         }
 
     }
-
-    /*
-     * public static void main(String[] args) {
-     * DataFile datafile = new DataFile("Question", "Answer");
-     * DataFile.createFile();
-     * datafile.dataWriter();
-     * long byteCount = datafile.byteCount();
-     * 
-     * System.out.println("Byte Count: " + byteCount);
-     * }
-     */
 }
