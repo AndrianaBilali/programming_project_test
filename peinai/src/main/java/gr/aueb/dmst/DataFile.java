@@ -1,16 +1,21 @@
 package gr.aueb.dmst;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.Path;
 import java.nio.file.InvalidPathException;
-import java.util.Scanner;
+
+// Saves AI responses after post-processing the data
 
 public class DataFile {
 
-    // Saves AI responses after post-processing the data
     private static final String FILE_PATH = System.getProperty("user.home") +
             File.separator + "data-browsing.txt";
     private static File outputFile;
@@ -66,25 +71,9 @@ public class DataFile {
     }
 
     // Counts the byte size of the specific file
-    /*
-     * try (var buff = new BufferedInputStream(new
-     * FileInputStream(outputFile.getName()))) {
-     * return Files.size(Paths.get(outputFile.getPath()));
-     */
-
-    /*
-     * } catch (FileNotFoundException e) {
-     * System.err.println("Unable to open file " + outputFile.getName() + ": " +
-     * e.getMessage());
-     * return -1L;
-     * } catch (IOException e) {
-     * System.err.println("Error reading byte: " + e.getMessage());
-     * return -1L;
-     */
     public long byteCount() {
 
         try (var buff = new BufferedInputStream(new FileInputStream(outputFile.getPath()))) {
-            // return Files.size(Paths.get(outputFile.getPath()));
             System.out.println("File exists: " + outputFile.exists());
             System.out.println("File length: " + outputFile.length());
             return outputFile.length();
