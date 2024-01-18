@@ -161,7 +161,7 @@ public class Main {
                 System.out.println();
 
                 // The recipe will be saved in a file
-                DataFile datafile = new DataFile(modifiedUserQuestion, result.toString());
+                DataFile datafile = new DataFile(modifiedUserQuestion, apiResponse);
                 System.out.println("Your recipe will now be saved in a file...");
 
                 DataFile.createFile();
