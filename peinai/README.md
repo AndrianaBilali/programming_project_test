@@ -68,4 +68,4 @@ java -jar ...\programming_project_test\peinai\target\peinai-1.0.jar
 
  **8) Οδηγίες για την αποθήκευση των συνταγών:**
 
-    -Το αρχείο με τις συνταγές αποθηκεύεται στο user.home που είναι το Users/<username> 
+    Το αρχείο με τις συνταγές αποθηκεύεται στο user.home που είναι το Users/<username> 
