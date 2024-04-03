@@ -36,7 +36,7 @@ public class InappropriateContent {
      *creates a connection with the REST API server and receives the response
      */
     private static String analyzeText(String apiKey, String text) throws IOException {
-        String apiUrl = "https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key=AIzaSyBCn3o2sQkPcRTLCKn4shgrk3HnTUqYI0o";
+        String apiUrl = "https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?";
 
         // Create the JSON payload
         String jsonPayload = "{\"comment\": {\"text\": \"" + text + "\"}, \"requestedAttributes\": {\"TOXICITY\": {}}}";
